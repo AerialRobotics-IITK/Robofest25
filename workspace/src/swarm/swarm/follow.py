@@ -97,15 +97,15 @@ class GotoPPointNode(Node):
         sp.position.z = self.target.z
         sp.yaw = 0.0
 
-        # if not self.is_armed():
-        #     self.get_logger().info('Arming...')
-        #     if self.arm(True):
-        #         self.get_logger().info('Armed, switching to GUIDED')
-        #         self.set_mode('GUIDED')
-        #         self.simple_takeoff(self.takeoff_alt)
-        #     else:
-        #         self.get_logger().warn('Arming failed')
-        #         return
+        if not self.is_armed():
+            self.get_logger().info('Arming...')
+            if self.arm(True):
+                self.get_logger().info('Armed, switching to GUIDED')
+                self.set_mode('GUIDED')
+                self.simple_takeoff(self.takeoff_alt)
+            else:
+                self.get_logger().warn('Arming failed')
+                return
 
         self.setpoint_pub.publish(sp)
 

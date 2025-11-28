@@ -28,7 +28,8 @@ setup(
     entry_points={
         'console_scripts': [
             'follow = swarm.follow:main',
-            'finder = swarm.p_finder:main'
+            'finder = swarm.p_finder:main',
+            'sync = swarm.drone_sync:main'
         ],
     },
 )

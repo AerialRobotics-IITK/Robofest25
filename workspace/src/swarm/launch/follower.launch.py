@@ -6,6 +6,8 @@ from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import os
 
+from swarm import drone_sync
+
 def generate_launch_description():
 
     # -----------------------------
@@ -31,6 +33,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "namespace": "uav2",
+            "gcs_url": "",
         }.items()
     )
 
@@ -41,6 +44,12 @@ def generate_launch_description():
         )
     )
 
+    drone_sync = Node(
+        package="swarm",
+        executable="sync",
+        name="drone_sync",
+        output="screen"
+    )
     # -----------------------------
     # 3. p_finder (depends on MAVROS)
     # -----------------------------
@@ -64,7 +73,7 @@ def generate_launch_description():
     call_service = ExecuteProcess(
         cmd=[
             "ros2", "service", "call",
-            "/uav2/mavros/set_stream_rate",
+            "/uav2/set_stream_rate",
             "mavros_msgs/srv/StreamRate",
             "{\"stream_id\": 0, \"message_rate\": 10, \"on_off\": true }"
         ],
@@ -72,7 +81,7 @@ def generate_launch_description():
     )
     start_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,p_finder,follower],
+        actions=[call_service,drone_sync,p_finder,follower],
     )
     # -----------------------------
     # Build launch description

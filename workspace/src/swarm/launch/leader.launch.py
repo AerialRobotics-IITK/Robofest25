@@ -31,6 +31,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "namespace": "uav1",
+            "gcs_url": "",
         }.items()
     )
 
@@ -43,7 +44,7 @@ def generate_launch_description():
     call_service = ExecuteProcess(
         cmd=[
             "ros2", "service", "call",
-            "/uav1/mavros/set_stream_rate",
+            "/uav1/set_stream_rate",
             "mavros_msgs/srv/StreamRate",
             "{\"stream_id\": 0, \"message_rate\": 10, \"on_off\": true }"
         ],
