@@ -33,7 +33,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "namespace": "uav2",
-            "gcs_url": "",
+            "tgt_system": "2",
         }.items()
     )
 

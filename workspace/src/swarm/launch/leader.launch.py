@@ -31,7 +31,6 @@ def generate_launch_description():
         ),
         launch_arguments={
             "namespace": "uav1",
-            "gcs_url": "",
         }.items()
     )
 
