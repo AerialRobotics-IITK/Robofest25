@@ -8,7 +8,7 @@ USER_GID ?=1000
 FCU_URL ?=udp://:14551@
 NUM ?=3
 SINGLE_CMD ?=sim_vehicle.py -v ArduCopter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --map
-SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 90,10 --mcast
+SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --out=udp:0.0.0.0:14552 --out=udp:0.0.0.0:14553 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 90,10 --mcast
 MAV_SWARM ?=bash -c "source install/setup.bash && ros2 launch swarm swarm_mavros.launch.py"
 
 req:

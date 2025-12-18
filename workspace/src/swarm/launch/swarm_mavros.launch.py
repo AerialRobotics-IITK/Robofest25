@@ -36,11 +36,11 @@ def generate_launch_description():
             launch_arguments={
                 "namespace": f"uav{i}",
                 "tgt_system": str(i),
-                "fcu_url": os.environ.get('FCU_URL','udp://:14551@'),
+                "fcu_url": f'udp://:1455{i}@',
             }.items()
         )
         # mavros_launchs.append(mavros_launch)
-        ld.add_action(TimerAction(period=float(i*3),actions=[mavros_launch]))
+        ld.add_action(TimerAction(period=float(i*5),actions=[mavros_launch]))
 
     # start_mavros_after_zenoh = RegisterEventHandler(
     #     OnProcessStart(
