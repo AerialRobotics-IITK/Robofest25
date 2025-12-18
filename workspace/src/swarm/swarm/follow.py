@@ -5,6 +5,7 @@ from rclpy.qos import qos_profile_system_default
 from geometry_msgs.msg import PointStamped,PoseStamped
 from mavros_msgs.srv import CommandBool, SetMode,CommandTOL
 from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
+import os
 
 class Follower(Node):
     def __init__(self):
@@ -14,12 +15,12 @@ class Follower(Node):
             history=HistoryPolicy.KEEP_LAST,
             depth=10
         )
+        self.namespace = f"uav{os.environ.get('MAV_ID',2)}",
+        self.set_mode_cli = self.create_client(SetMode,f'{self.namespace}/set_mode')
+        self.arming_cli = self.create_client(CommandBool, f'{self.namespace}/cmd/arming')
+        self.takeoff_cli = self.create_client(CommandTOL, f'{self.namespace}/cmd/takeoff')
 
-        self.set_mode_cli = self.create_client(SetMode,'uav2/set_mode')
-        self.arming_cli = self.create_client(CommandBool, 'uav2/cmd/arming')
-        self.takeoff_cli = self.create_client(CommandTOL, 'uav2/cmd/takeoff')
-
-        self.publisher = self.create_publisher(PoseStamped,'uav2/setpoint_position/local',qos_profile)
+        self.publisher = self.create_publisher(PoseStamped,f'{self.namespace}/setpoint_position/local',qos_profile)
         self.tookoff = False
 
         self.target = None

@@ -32,7 +32,7 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            "namespace": "uav2",
+            "namespace": f"uav{os.environ.get('MAV_ID',2)}",
             "tgt_system": os.environ.get("MAV_ID",2),
             "fcu_url": f"serial://{os.environ.get('DEVICE','/dev/ttyACM0')}",
         }.items()
