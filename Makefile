@@ -5,7 +5,10 @@ IMAGE ?=swarm
 CMD ?=tmux
 USER_UID ?=1000
 USER_GID ?=1000
-FCU_URL ?=udp://:14550@
+FCU_URL ?=udp://:14551@
+NUM ?=3
+SINGLE_CMD ?=sim_vehicle.py -v ArduCopter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --map
+SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 90,10 --mcast
 
 req:
 	sudo apt-get update && sudo apt-get install -y podman tmux && touch req
@@ -33,3 +36,9 @@ arduimg: ardupilot
 
 ardu: arduimg
 	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest bash
+
+uav1: arduimg
+	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SINGLE_CMD)
+
+swarm: arduimg
+	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_CMD)
