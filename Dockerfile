@@ -7,6 +7,7 @@ run chmod +x install_geographiclib_datasets.sh && ./install_geographiclib_datase
 run echo 'export RMW_IMPLEMENTATION=rmw_zenoh_cpp' >> /root/.bashrc
 run apt-get update && apt-get install -y python3-pip
 run pip3 install pyproj
+env RMW_IMPLEMENTATION=rmw_zenoh_cpp
 copy mavros/ /root/
 run cat /root/mod.bashrc >> /root/.bashrc
 copy workspace/ /workspace/

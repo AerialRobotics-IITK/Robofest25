@@ -9,6 +9,7 @@ FCU_URL ?=udp://:14551@
 NUM ?=3
 SINGLE_CMD ?=sim_vehicle.py -v ArduCopter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --map
 SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 90,10 --mcast
+MAV_SWARM ?=bash -c "source install/setup.bash && ros2 launch swarm swarm_mavros.launch.py"
 
 req:
 	sudo apt-get update && sudo apt-get install -y podman tmux && touch req
@@ -26,7 +27,7 @@ custom: image
 	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 local: image
-	podman run -it --rm --net host -e MAV_ID -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(CMD)
+	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(CMD)
 
 ardupilot:
 	git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
@@ -42,3 +43,6 @@ uav1: arduimg
 
 swarm: arduimg
 	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_CMD)
+
+mavswarm: image
+	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(MAV_SWARM)
