@@ -46,3 +46,9 @@ swarm: arduimg
 
 mavswarm: image
 	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(MAV_SWARM)
+
+ardugzimg:
+	podman build -t ardu-gz --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
+
+ardugz: ardugzimg
+	IMG=ardu-gz CMD=bash ./gui.sh

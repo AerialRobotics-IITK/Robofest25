@@ -1,0 +1,3 @@
+[submodule "ardupilot_gazebo_swarm"]
+	path = ardupilot_gazebo_swarm
+	url = git@github.com:AerialRobotics-IITK/ardupilot_gazebo_swarm.git
