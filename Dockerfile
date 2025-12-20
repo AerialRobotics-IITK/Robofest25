@@ -14,4 +14,8 @@ copy workspace/ /workspace/
 workdir /workspace
 run colcon build --symlink-install
 run echo 'source /workspace/install/setup.bash' >> /root/.bashrc
+
+copy Tools /Tools
+run /Tools/update_router_config.py
+
 cmd [ "tmux" ]
