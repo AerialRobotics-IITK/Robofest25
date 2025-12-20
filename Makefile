@@ -32,7 +32,7 @@ local: image
 ardupilot:
 	git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
 
-arduimg: ardupilot
+arduimg: ardupilot req
 	cd ardupilot && PATH=$(PATH) PWD=$(PWD)/ardupilot podman build . -t ardupilot --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID)
 
 ardu: arduimg
@@ -47,7 +47,7 @@ swarm: arduimg
 mavswarm: image
 	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
-ardugzimg:
+ardugzimg: req
 	podman build -t ardu-gz --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
 
 ardugz: ardugzimg
