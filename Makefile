@@ -53,8 +53,6 @@ ardugzimg: req
 ardugz: ardugzimg
 	IMG=ardu-gz CMD=bash ./gui.sh
 
-arduiris: arduimg
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console
-
 gziris: ardugzimg
-	IMG=ardu-gz CMD="gz sim -v4 -r iris_runway.sdf" ./gui.sh
+	IMG=ardu-gz CMD="gz sim -v4 -r iris_runway.sdf" ./gui.sh &
+	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console
