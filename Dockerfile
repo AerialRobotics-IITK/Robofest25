@@ -14,9 +14,10 @@ copy zenoh/ /root/
 
 # Package stuff
 run apt-get update && apt-get install -y python3-pyproj python3-scipy
-copy workspace/ /workspace/
+# copy workspace/ /workspace/
 workdir /workspace
-run colcon build --symlink-install
+run --mount=type=bind,source=./workspace/src,target=/workspace/src\
+      colcon build --symlink-install
 run echo 'source /workspace/install/setup.bash' >> /root/.bashrc
 
 # Final config modifications
