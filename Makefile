@@ -8,7 +8,12 @@ USER_GID ?=1000
 FCU_URL ?=udp://:14551@
 NUM ?=3
 SINGLE_CMD ?=sim_vehicle.py -v ArduCopter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --map
-SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --out=udp:0.0.0.0:14552 --out=udp:0.0.0.0:14553 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,0.2 --mcast
+SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --out=udp:0.0.0.0:14552 --out=udp:0.0.0.0:14553 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast
+SWARM_ARDU_GZ_CMD ?=sim_vehicle.py -v Copter -f gazebo-iris --out=udp:0.0.0.0:14550 \
+										--out=udp:0.0.0.0:14551 \
+										--out=udp:0.0.0.0:14552 \
+										--out=udp:0.0.0.0:14553 \
+										--console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast --model JSON
 MAV_SWARM ?=bash -c "source install/setup.bash && ros2 launch swarm swarm_mavros.launch.py"
 
 req:
@@ -47,8 +52,11 @@ uav1: arduimg
 swarm: arduimg
 	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_CMD)
 
+ardugzswarm: arduimg
+	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_ARDU_GZ_CMD)
+
 mavswarm: image
-	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(MAV_SWARM)
+	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) -v "$(PWD)/workspace/src:/workspace/src" --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
 ardugzimg: req
 	podman build -t ardu-gz --build-arg NUM=$(NUM) --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
