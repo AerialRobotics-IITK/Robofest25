@@ -48,11 +48,14 @@ mavswarm: image
 	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
 ardugzimg: req
-	podman build -t ardu-gz --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
+	podman build -t ardu-gz --build-arg NUM=$(NUM) --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
 
 ardugz: ardugzimg
 	IMG=ardu-gz CMD=bash ./gui.sh
 
 gziris: ardugzimg
 	IMG=ardu-gz CMD="gz sim -v4 -r iris_runway.sdf" ./gui.sh &
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON --console
+	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --model JSON --console
+
+gzswarm: ardugzimg
+	IMG=ardu-gz CMD="gz sim -v4 -r generated_swarm.sdf" ./gui.sh

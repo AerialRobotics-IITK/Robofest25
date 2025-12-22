@@ -13,7 +13,7 @@ env ZENOH_ROUTER_CONFIG_URI=/root/router_config.json5
 copy zenoh/ /root/
 
 # Package stuff
-run apt-get update && apt-get install -y python3-pyproj
+run apt-get update && apt-get install -y python3-pyproj python3-scipy
 copy workspace/ /workspace/
 workdir /workspace
 run colcon build --symlink-install
