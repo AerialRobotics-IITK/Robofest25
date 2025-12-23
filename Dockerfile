@@ -13,15 +13,19 @@ env ZENOH_ROUTER_CONFIG_URI=/root/router_config.json5
 copy zenoh/ /root/
 
 # Package stuff
-run apt-get update && apt-get install -y python3-pyproj python3-scipy ros-${ROS_DISTRO}-camera-ros
+run apt-get update && apt-get install -y \
+        python3-pyproj python3-pip \
+        ros-${ROS_DISTRO}-camera-ros
+run pip install mediapipe
+
 # copy workspace/ /workspace/
 workdir /workspace
-run --mount=type=bind,source=./workspace/src,target=/workspace/src\
+run --mount=type=bind,source=./workspace/src,target=/workspace/src \
       colcon build --symlink-install
-run echo 'source /workspace/install/setup.bash' >> /root/.bashrc
 
 # Final config modifications
 copy Tools /Tools
-run chmod +x /Tools/update_router_config.py && /Tools/update_router_config.py
-
+run chmod +x /Tools/update_router_config.py
+run chmod +x /Tools/entrypoint.sh
+entrypoint [ "/Tools/entrypoint.sh" ]
 cmd [ "tmux" ]
