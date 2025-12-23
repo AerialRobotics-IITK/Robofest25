@@ -51,10 +51,16 @@ def generate_launch_description():
         ],
         output="screen"
     )
+    raspi_cam = Node(
+        package="camera_ros",
+        executable="camera_node",
+        name="rpi_cam",
+        output="screen"
+    )
 
     call_service_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service],
+        actions=[call_service,raspi_cam],
     )
 
     # -----------------------------
