@@ -28,6 +28,9 @@ usb: image
 gpio: image
 	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
+gpio4: image
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+
 custom: image
 	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
