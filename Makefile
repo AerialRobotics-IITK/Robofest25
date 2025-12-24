@@ -36,6 +36,8 @@ custom: image
 
 local: image
 	podman run -it --rm --net host \
+		--privileged \
+  	-v /run/udev:/run/udev \
 		-e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) \
   	-v "$(PWD)/workspace/src:/workspace/src" \
 		--group-add keep-groups $(IMAGE) $(CMD)
