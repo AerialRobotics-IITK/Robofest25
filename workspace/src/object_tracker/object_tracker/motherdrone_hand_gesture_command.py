@@ -29,7 +29,6 @@ class HandBasedGestureContorl(Node):
 
         # ---------------- STATE ----------------
         self.state = State()
-        self.dt = 0.01
         self.altitude = 0.0
         self.altitude_received = False
         self.stage = 0

@@ -35,7 +35,8 @@ def process_frames(frame, origin, locked, distance, tracking_vertical=False):
     waist_center = (-1, -1)
 
     # --- Common pre-processing ---
-    frame = cv2.flip(frame, -1)
+    #frame = cv2.flip(frame, 1)
+    frame = cv2.rotate(frame,cv2.ROTATE_90_COUNTERCLOCKWISE)
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
     h, w, _ = frame.shape
     frame_copy = frame.copy()
