@@ -13,11 +13,12 @@ run apt-get update && apt-get install -y \
         python3-pyproj python3-pip \
         ros-${ROS_DISTRO}-camera-ros
 run pip install mediapipe scipy
+run apt-get update && apt-get install -y ros-humble-ament-cmake
 
 # copy workspace/ /workspace/
 workdir /workspace
 run --mount=type=bind,source=./workspace/src,target=/workspace/src \
-      colcon build --symlink-install
+      . /opt/ros/humble/setup.sh && colcon build --symlink-install
 
 # Final config modifications
 env RMW_IMPLEMENTATION=rmw_zenoh_cpp
