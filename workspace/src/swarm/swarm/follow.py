@@ -32,12 +32,14 @@ class Follower(Node):
         if self.set_mode('GUIDED'):
             self.get_logger().info("GUIDED mode activated")
         else:
+            self.get_logger().error("GUIDED mode not activated")
             rclpy.shutdown()
 
         # Arming Vehicle
         if self.arm(True):
             self.get_logger().info("ARMED!")
         else:
+            self.get_logger().error("not ARMED!")
             rclpy.shutdown()
 
        # Takeoff Vehicle
@@ -46,6 +48,7 @@ class Follower(Node):
             time.sleep(5.0)
             self.tookoff = True
         else:
+            self.get_logger().error("Takeoff failed")
             rclpy.shutdown()
 
 
