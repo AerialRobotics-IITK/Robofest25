@@ -6,8 +6,6 @@ from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import os
 
-from swarm import drone_sync
-
 def generate_launch_description():
 
     # -----------------------------
@@ -44,23 +42,13 @@ def generate_launch_description():
             on_start=[mavros_launch]
         )
     )
-
-    drone_sync = Node(
+    # 3. Offset Publisher
+    offset = Node(
         package="swarm",
-        executable="sync",
-        name="drone_sync",
+        executable="local_pose",
+        name="local_pose",
         output="screen"
     )
-    # -----------------------------
-    # 3. p_finder (depends on MAVROS)
-    # -----------------------------
-    p_finder = Node(
-        package="swarm",
-        executable="finder",
-        name="p_finder",
-        output="screen"
-    )
-
     # -----------------------------
     # 4. follower (depends on p_finder)
     # -----------------------------
@@ -82,7 +70,7 @@ def generate_launch_description():
     )
     start_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,drone_sync,p_finder,follower],
+        actions=[call_service,offset,follower],
     )
     # -----------------------------
     # Build launch description

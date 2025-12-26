@@ -62,15 +62,28 @@ def generate_launch_description():
         name="rpi_cam",
         output="screen"
     )
-    lidar_bridge = Node(
-        package="swarm",
-        executable="tof",
-        name="tof_sensor",
+    # lidar_bridge = Node(
+    #     package="swarm",
+    #     executable="tof",
+    #     name="tof_sensor",
+    #     output="screen"
+    # )
+    tracker = Node(
+        package="object_tracker",
+        executable="tracker",
+        name="hand_gesture_tracker",
         output="screen"
     )
+    planner = Node(
+            package="swarm",
+            executable="planner",
+            name="SwarmPlanner",
+            output="screen"
+        )
+
     call_service_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,raspi_cam,lidar_bridge],
+        actions=[call_service,raspi_cam,tracker,planner],
     )
 
     # -----------------------------

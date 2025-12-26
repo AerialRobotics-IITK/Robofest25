@@ -30,7 +30,8 @@ setup(
             'follow = swarm.follow:main',
             'finder = swarm.p_finder:main',
             'tof = swarm.rangefinder:main',
-            'sync = swarm.drone_sync:main'
+            'local_pose = swarm.local_pose:main',
+            'planner = swarm.planner:main'
         ],
     },
 )
