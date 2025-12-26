@@ -29,6 +29,7 @@ setup(
         'console_scripts': [
             'follow = swarm.follow:main',
             'finder = swarm.p_finder:main',
+            'tof = swarm.rangefinder:main',
             'sync = swarm.drone_sync:main'
         ],
     },

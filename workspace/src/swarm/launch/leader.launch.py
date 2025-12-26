@@ -21,6 +21,10 @@ def generate_launch_description():
     # -----------------------------
     # 2. MAVROS (apm.launch)
     # -----------------------------
+    config_path = os.path.join(
+        get_package_share_directory('swarm'),
+        'launch', 'params.yaml'
+    )
     mavros_launch = IncludeLaunchDescription(
         AnyLaunchDescriptionSource(
             os.path.join(
@@ -33,6 +37,7 @@ def generate_launch_description():
             "namespace": f"uav{os.environ.get('MAV_ID',1)}",
             "tgt_system": str(os.environ.get("MAV_ID",1)),
             "fcu_url": os.environ.get('FCU_URL','/dev/ttyACM0'),
+            "config_yaml": config_path,
         }.items()
     )
 
@@ -57,10 +62,15 @@ def generate_launch_description():
         name="rpi_cam",
         output="screen"
     )
-
+    lidar_bridge = Node(
+        package="swarm",
+        executable="tof",
+        name="tof_sensor",
+        output="screen"
+    )
     call_service_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,raspi_cam],
+        actions=[call_service,raspi_cam,lidar_bridge],
     )
 
     # -----------------------------

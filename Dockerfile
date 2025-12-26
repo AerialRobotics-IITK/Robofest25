@@ -12,8 +12,9 @@ run apt-get update && apt-get install -y ros-${ROS_DISTRO}-rmw-zenoh-cpp
 run apt-get update && apt-get install -y \
         python3-pyproj python3-pip \
         ros-${ROS_DISTRO}-camera-ros
-run pip install mediapipe scipy
+run pip install mediapipe==0.10.9 scipy opencv-python
 run apt-get update && apt-get install -y ros-humble-ament-cmake
+run pip install pyserial
 
 # copy workspace/ /workspace/
 workdir /workspace
