@@ -34,6 +34,12 @@ gpio4: image
 ama2: image
 	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
+deploy: image
+	touch deploy && CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./deploy.sh
+
+run:
+	podman start -ai swarm_cont
+
 custom: image
 	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
