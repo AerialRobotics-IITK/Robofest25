@@ -27,6 +27,7 @@ MAVROS(if required) `make mavswarm`
 
 ## Deployment Setup
 0. Open up Raspberry Pi's UART port and identify which device belongs to which port you can make use of the photo below
+
 ![UART](./UART.jpeg)
 
 #### Note : The UART numbers are off by 1 and UART0 is available on /dev/ttyS0
