@@ -30,7 +30,7 @@ MAVROS(if required) `make mavswarm`
 
 ![UART](./UART.jpeg)
 
-#### Note : The UART numbers are off by 1 and UART0 is available on /dev/ttyS0
+#### Note : The UART numbers are off by 1 and UART0 is available on /dev/ttyS0 on Raspberry 4
 
 1. Place this folder either through zipping and sending it over ssh or git clone the repo (you may remove the --recursive or else it will only cause it to take a little more space)
 2. Add the ip address of all the drones or zenoh systems you want to connect to in `./zenoh/router_config.json5`
