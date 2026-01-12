@@ -26,19 +26,20 @@ MAVROS(if required) `make mavswarm`
 `make local`
 
 ## Deployment Setup
-0. Open up Raspberry Pi's UART port and identify which device belongs to which port you can make use of the photo belo
+0. Open up Raspberry Pi's UART port and identify which device belongs to which port you can make use of the photo below
 ![UART](/home/shivang/Documents/Aerial/Robofest25/UART.jpeg)
 
 #### Note : The UART numbers are off by 1 and UART0 is available on /dev/ttyS0
 
 1. Place this folder either through zipping and sending it over ssh or git clone the repo (you may remove the --recursive or else it will only cause it to take a little more space)
-2. Now run one of the following commands
+2. Add the ip address of all the drones or zenoh systems you want to connect to in `./zenoh/router_config.json5`
+3. Now run one of the following commands
 USB: `make usb MAV_ID=2` or leave if MAV_ID required is 1 `make usb`
 gpio(UART0) (raspi 5): `make gpio`
 gpio4(UART0) (raspi 4): `make gpio4`
 custom: `make custom DEVICE=/dev/{your_device} BAUD={value}`
-3. Now if using mavros then run `ros2 launch swarm mavros.launch.py` inside tmux
-4. Run your code as you did on simulation
+4. Now if using mavros then run `ros2 launch swarm mavros.launch.py` inside tmux
+5. Run your code as you did on simulation
 
 ## Note:
 1. We are using Zenoh Router instead of default DDS,default DDS chokes the system and is not made for mesh network
