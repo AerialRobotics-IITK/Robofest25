@@ -49,3 +49,4 @@ custom: `make custom DEVICE=/dev/{your_device} BAUD={value}`
 4. Sleep for few seconds between takeoff and set_position/local
 5. Never run Zenoh router twice on any device (even when in container and outside container both count as the same device)
 6. You need to add how to install you dependencies inside `Dockerfile` in this folder for your code to compile
+7. Nvidia users might want to install Nvidia Container Tookit and then use the flag `-e NVIDIA_DRIVER_CAPABILITIES=all` in gui.sh
