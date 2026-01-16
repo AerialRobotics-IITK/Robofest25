@@ -1,6 +1,24 @@
 MAV_ID ?=1
+RUNTIME ?=podman
 DEVICE ?=/dev/ttyACM0
 BAUD ?=115200
+FLAGS ?=
+GUI_SCRIPT = gui_$(RUNTIME).sh
+NVIDIA ?= 0
+
+ifeq ($(NVIDIA),0)
+NVIDIA_FLAGS :=
+else ifeq ($(NVIDIA),1)
+# Simple 'all' is the clearest and widely supported form
+NVIDIA_FLAGS := --gpus all
+else ifeq ($(NVIDIA),2)
+# Select a specific device and capabilities. Adjust device index as needed.
+NVIDIA_FLAGS := --gpus all,capabilities=compute,utility,graphics
+else
+$(error Invalid NVIDIA value '$(NVIDIA)'. Use 0, 1 or 2)
+endif
+
+FLAGS := $(FLAGS) $(NVIDIA_FLAGS)
 IMAGE ?=swarm
 CMD ?=tmux
 USER_UID ?=1000
@@ -17,34 +35,34 @@ SWARM_ARDU_GZ_CMD ?=sim_vehicle.py -v Copter -f gazebo-iris --out=udp:0.0.0.0:14
 MAV_SWARM ?="ros2 launch swarm swarm_mavros.launch.py"
 
 req:
-	sudo apt-get update && sudo apt-get install -y podman tmux && touch req
+	sudo apt-get update && sudo apt-get install -y $(RUNTIME) tmux && touch req
 
 image: req
-	podman build -t $(IMAGE) .
+	$(RUNTIME) build -t $(IMAGE) .
 
 usb: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 gpio: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 gpio4: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 ama2: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 deploy: image
-	touch deploy && CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./deploy.sh
+	touch deploy && CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./deploy.sh
 
 run:
-	podman start -ai swarm_cont
+	$(RUNTIME) start -ai swarm_cont
 
 custom: image
-	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 local: image
-	podman run -it --rm --net host \
+	$(RUNTIME) run -it --rm --net host \
 		--privileged \
   	-v /run/udev:/run/udev \
 		-e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) \
@@ -55,32 +73,36 @@ ardupilot:
 	git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
 
 arduimg: ardupilot req
-	cd ardupilot && PATH=$(PATH) PWD=$(PWD)/ardupilot podman build . -t ardupilot --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID)
+	cd ardupilot && PATH=$(PATH) PWD=$(PWD)/ardupilot $(RUNTIME) build . -t ardupilot --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID)
 
 ardu: arduimg
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest bash
+	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest bash
 
 uav1: arduimg
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SINGLE_CMD)
+	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SINGLE_CMD)
 
 swarm: arduimg
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_CMD)
+	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_CMD)
 
 ardugzswarm: arduimg
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_ARDU_GZ_CMD)
+	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_ARDU_GZ_CMD)
 
 mavswarm: image
-	podman run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) -v "$(PWD)/workspace/src:/workspace/src" --group-add keep-groups $(IMAGE) $(MAV_SWARM)
+	$(RUNTIME) run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) -v "$(PWD)/workspace/src:/workspace/src" --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
 ardugzimg: req arduimg
-	podman build -t ardu-gz --build-arg NUM=$(NUM) --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
+	$(RUNTIME) build -t ardu-gz --build-arg NUM=$(NUM) --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
 
 ardugz: ardugzimg
-	IMG=ardu-gz CMD=bash ./gui.sh
+	IMG=ardu-gz CMD=bash ./$(GUI_SCRIPT)
+
 
 gziris: ardugzimg
-	IMG=ardu-gz CMD="gz sim -v4 -r iris_runway.sdf" ./gui.sh &
-	podman run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --model JSON --console
+	@echo $(FLAGS)
+	IMG=ardu-gz CMD="gz sim -v4 -r iris_runway.sdf" ./$(GUI_SCRIPT) &
+	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" \
+		ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris \
+		--out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --model JSON --console
 
 gzswarm: ardugzimg
-	IMG=ardu-gz CMD="gz sim -v4 -r generated_swarm.sdf" ./gui.sh
+	IMG=ardu-gz CMD="gz sim -v4 -r generated_swarm.sdf" ./$(GUI_SCRIPT)

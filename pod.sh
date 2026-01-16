@@ -1,5 +1,5 @@
 #!/bin/bash
-podman run -it --rm --net host \
+$RUNTIME run -it --rm --net host \
   -v "$(pwd)/workspace/src:/workspace/src" \
   -v /run/udev:/run/udev \
   --privileged \
