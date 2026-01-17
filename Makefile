@@ -31,6 +31,8 @@ SWARM_ARDU_GZ_CMD ?=sim_vehicle.py -v Copter -f gazebo-iris --out=udp:0.0.0.0:14
 										--out=udp:0.0.0.0:14551 \
 										--out=udp:0.0.0.0:14552 \
 										--out=udp:0.0.0.0:14553 \
+										--out=udp:0.0.0.0:14554 \
+										--out=udp:0.0.0.0:14555 \
 										--console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast --model JSON
 MAV_SWARM ?="ros2 launch swarm swarm_mavros.launch.py"
 
