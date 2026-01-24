@@ -31,7 +31,9 @@ setup(
             'finder = swarm.p_finder:main',
             'tof = swarm.rangefinder:main',
             'local_pose = swarm.local_pose:main',
-            'planner = swarm.planner:main'
+            'planner = swarm.planner:main',
+            'slavery = swarm.slavery:main',
+            'lazy = swarm.lazy_pose:main'
         ],
     },
 )

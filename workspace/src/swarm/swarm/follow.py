@@ -21,9 +21,9 @@ def rotate_vector(vec,theta):
     return rot_matrix @ vec
 
 
-class ImageViewer(Node):
+class Follower(Node):
     def __init__(self):
-        super().__init__('hand_tracker')
+        super().__init__('follower')
 
         qos = QoSProfile(
             reliability=ReliabilityPolicy.BEST_EFFORT,
@@ -221,7 +221,7 @@ class ImageViewer(Node):
 
 def main(args=None):
     rclpy.init(args=args)
-    node = ImageViewer()
+    node = Follower()
     try:
         rclpy.spin(node)
     except KeyboardInterrupt:
