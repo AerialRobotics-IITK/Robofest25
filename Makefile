@@ -23,7 +23,8 @@ IMAGE ?=swarm
 CMD ?=tmux
 USER_UID ?=1000
 USER_GID ?=1000
-FCU_URL ?=udp://:14551@
+FCU_PORT ?=14551
+FCU_URL ?=udp://:$(FCU_PORT)@
 NUM ?=3
 SINGLE_CMD ?=sim_vehicle.py -v ArduCopter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --console --map
 SWARM_CMD ?=sim_vehicle.py -v Copter --out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --out=udp:0.0.0.0:14552 --out=udp:0.0.0.0:14553 --console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast
