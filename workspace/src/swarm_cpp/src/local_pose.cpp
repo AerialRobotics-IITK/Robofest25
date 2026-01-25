@@ -39,6 +39,11 @@ public:
             "/uav1/global_position/global", qos_profile,
             std::bind(&HomePositionNode::uav1GlobalCallback, this, std::placeholders::_1));
         
+        // NEW: Subscribe to UAV1's local pose for heading
+        uav1_local_sub_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
+            "/uav1/local_position/pose", qos_profile,
+            std::bind(&HomePositionNode::uav1LocalCallback, this, std::placeholders::_1));
+        
         own_global_sub_ = this->create_subscription<sensor_msgs::msg::NavSatFix>(
             "/" + namespace_ + "/global_position/global", qos_profile,
             std::bind(&HomePositionNode::ownGlobalCallback, this, std::placeholders::_1));
@@ -53,9 +58,16 @@ public:
         
         RCLCPP_INFO(this->get_logger(), "Home position node started for %s", namespace_.c_str());
         RCLCPP_INFO(this->get_logger(), "Collecting global positions for offset calculation...");
+        RCLCPP_INFO(this->get_logger(), "Will publish position relative to UAV1's heading (X=left/right, Y=forward/backward)");
     }
 
 private:
+    // NEW: Callback for UAV1's local pose
+    void uav1LocalCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
+    {
+        uav1_latest_pose_ = msg;
+    }
+    
     void uav1GlobalCallback(const sensor_msgs::msg::NavSatFix::SharedPtr msg)
     {
         if (global_averaging_complete_) return;
@@ -103,31 +115,67 @@ private:
     
     void ownLocalCallback(const geometry_msgs::msg::PoseStamped::SharedPtr msg)
     {
-        double current_x = msg->pose.position.x;
-        double current_y = msg->pose.position.y;
-        double current_z = msg->pose.position.z;
-        
-        if (offset_position_ != nullptr) {
-            // Note: Python comment says "subtract" but code adds offset
-            current_x += offset_position_->point.x;
-            current_y += offset_position_->point.y;
-            current_z += offset_position_->point.z;
-        } else {
-            RCLCPP_DEBUG(this->get_logger(), "Offset Not set for %s", namespace_.c_str());
+        if (offset_position_ == nullptr) {
+            RCLCPP_DEBUG(this->get_logger(), "Offset not set for %s", namespace_.c_str());
             return;
         }
         
-        auto point_msg = geometry_msgs::msg::PointStamped();
-        point_msg.header.stamp = this->now();
-        point_msg.header.frame_id = "map";
-        point_msg.point.x = current_x;
-        point_msg.point.y = current_y;
-        point_msg.point.z = current_z;
-        local_pos_pub_->publish(point_msg);
+        if (uav1_latest_pose_ == nullptr) {
+            RCLCPP_DEBUG(this->get_logger(), "UAV1 pose not received yet");
+            return;
+        }
         
+        // Calculate own position in global/map frame
+        double own_global_x = msg->pose.position.x + offset_position_->point.x;
+        double own_global_y = msg->pose.position.y + offset_position_->point.y;
+        double own_global_z = msg->pose.position.z + offset_position_->point.z;
+        
+        // Get UAV1 position in global/map frame (we need to apply offset to uav1 too)
+        // Since uav1 is the reference, its offset is (0, 0, 0)
+        double uav1_global_x = uav1_latest_pose_->pose.position.x;
+        double uav1_global_y = uav1_latest_pose_->pose.position.y;
+        double uav1_global_z = uav1_latest_pose_->pose.position.z;
+        
+        // Calculate relative vector from UAV1 to own drone in global frame
+        double dx = own_global_x - uav1_global_x;
+        double dy = own_global_y - uav1_global_y;
+        double dz = own_global_z - uav1_global_z;
+        
+        // Get UAV1's yaw (heading) from its orientation
+        double uav1_yaw = getYawFromOrientation(uav1_latest_pose_->pose.orientation);
+        
+        // Transform relative vector to UAV1's body frame
+        // In standard ROS/body frame: X=forward, Y=left, Z=up
+        double body_x = dx * std::cos(uav1_yaw) + dy * std::sin(uav1_yaw);  // forward component
+        double body_y = -dx * std::sin(uav1_yaw) + dy * std::cos(uav1_yaw); // left component (pos=left)
+        double body_z = dz; // vertical component
+        
+        // Create message with swapped axes:
+        // X = left/right offset (positive = left of UAV1)
+        // Y = forward/backward offset (positive = ahead of UAV1)
+        // Z = vertical offset
+        auto relative_pos_msg = geometry_msgs::msg::PointStamped();
+        relative_pos_msg.header.stamp = this->now();
+        relative_pos_msg.header.frame_id = "uav1_body_frame";
+        relative_pos_msg.point.x = body_y;  // Left/right offset as X
+        relative_pos_msg.point.y = body_x;  // Forward/backward as Y
+        relative_pos_msg.point.z = body_z;  // Altitude difference
+        
+        local_pos_pub_->publish(relative_pos_msg);
+        
+        // Also publish the static offset for reference
         if (offset_position_ != nullptr) {
             offset_pub_->publish(*offset_position_);
         }
+    }
+    
+    // NEW: Extract yaw from quaternion
+    double getYawFromOrientation(const geometry_msgs::msg::Quaternion& q)
+    {
+        // yaw (z-axis rotation)
+        double siny_cosp = 2.0 * (q.w * q.z + q.x * q.y);
+        double cosy_cosp = 1.0 - 2.0 * (q.y * q.y + q.z * q.z);
+        return std::atan2(siny_cosp, cosy_cosp);
     }
     
     geometry_msgs::msg::PointStamped::SharedPtr calculateOffsetVector()
@@ -194,12 +242,14 @@ private:
     rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr local_pos_pub_;
     rclcpp::Publisher<geometry_msgs::msg::PointStamped>::SharedPtr offset_pub_;
     rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr uav1_global_sub_;
+    rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr uav1_local_sub_; // NEW
     rclcpp::Subscription<sensor_msgs::msg::NavSatFix>::SharedPtr own_global_sub_;
     rclcpp::Subscription<geometry_msgs::msg::PoseStamped>::SharedPtr own_local_sub_;
     
     std::vector<std::array<double, 3>> uav1_global_positions_;
     std::vector<std::array<double, 3>> own_global_positions_;
     geometry_msgs::msg::PointStamped::SharedPtr offset_position_;
+    geometry_msgs::msg::PoseStamped::SharedPtr uav1_latest_pose_; // NEW
     
     rclcpp::Time global_start_time_;
     bool global_start_time_set_;
