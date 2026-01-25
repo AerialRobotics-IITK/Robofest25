@@ -44,9 +44,9 @@ def generate_launch_description():
     )
     # 3. Offset Publisher
     offset = Node(
-        package="swarm",
+        package="swarm_cpp",
         executable="lazy",
-        name="lazy_local_pose",
+        name="local_pose",
         output="screen"
     )
 

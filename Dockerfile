@@ -15,6 +15,8 @@ run apt-get update && apt-get install -y python3-pip ros-${ROS_DISTRO}-camera-ro
 # Requires python3.10
 run pip install mediapipe==0.10.9 scipy opencv-python
 
+run apt-get update && apt-get install -y libgeographic-dev pkg-config
+
 # copy workspace/ /workspace/
 workdir /workspace
 run --mount=type=bind,source=./workspace/src,target=/workspace/src \

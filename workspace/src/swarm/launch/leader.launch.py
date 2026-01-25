@@ -83,9 +83,9 @@ def generate_launch_description():
     #     )
 
     offset = Node(
-        package="swarm",
+        package="swarm_cpp",
         executable="lazy",
-        name="lazy_local_pose",
+        name="local_pose",
         output="screen"
     )
     
