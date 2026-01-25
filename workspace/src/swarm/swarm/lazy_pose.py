@@ -136,9 +136,9 @@ class HomePositionNode(Node):
         
         # Subtract offset if available
         if self.offset_position is not None:
-            current_x -= self.offset_position.point.x
-            current_y -= self.offset_position.point.y
-            current_z -= self.offset_position.point.z
+            current_x += self.offset_position.point.x
+            current_y += self.offset_position.point.y
+            current_z += self.offset_position.point.z
         else:
             self.get_logger().debug(f"Offset Not set for {self.namespace}")
             return

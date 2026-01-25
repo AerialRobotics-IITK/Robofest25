@@ -32,7 +32,6 @@ class Slavery(Node):
         self.drone1_topic = "/uav1/local_pos"
         self.drone2_topic = f"/{self.namespace}/local_pos"
 
-        self.drone1_des_topic = "/uav1/desired_pos"
         self.drone2_des_topic = f"/{self.namespace}/desired_pos"
         
         self.declare_parameter("publish_rate", 10.0)
@@ -56,12 +55,6 @@ class Slavery(Node):
             qos_profile
         )
 
-
-        self.drone1_pub = self.create_publisher(
-            PointStamped,
-            self.drone1_des_topic,
-            qos_profile
-        )
 
         self.drone2_pub = self.create_publisher(
             PointStamped,
@@ -102,8 +95,6 @@ class Slavery(Node):
             self.get_logger().warn("Waiting for pose from drone 1...")
         elif not self.drone2_pose:
             self.get_logger().warn("Waiting for pose from drone 2...")
-        elif not self.drone3_pose:
-            self.get_logger().warn("Waiting for pose from drone 3...")
 
 def main(args=None):
     rclpy.init(args=args)

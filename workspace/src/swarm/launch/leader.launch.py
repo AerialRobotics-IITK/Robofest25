@@ -37,6 +37,7 @@ def generate_launch_description():
             "namespace": f"uav{os.environ.get('MAV_ID',1)}",
             "tgt_system": str(os.environ.get("MAV_ID",1)),
             "fcu_url": os.environ.get('FCU_URL','/dev/ttyACM0'),
+            "gcs_url": "udp://10.147.210.76:14550",
             "config_yaml": config_path,
         }.items()
     )
@@ -56,34 +57,41 @@ def generate_launch_description():
         ],
         output="screen"
     )
-    raspi_cam = Node(
-        package="camera_ros",
-        executable="camera_node",
-        name="rpi_cam",
-        output="screen"
-    )
+    # raspi_cam = Node(
+    #     package="camera_ros",
+    #     executable="camera_node",
+    #     name="rpi_cam",
+    #     output="screen"
+    # )
     # lidar_bridge = Node(
     #     package="swarm",
     #     executable="tof",
     #     name="tof_sensor",
     #     output="screen"
     # )
-    tracker = Node(
-        package="object_tracker",
-        executable="tracker",
-        name="hand_gesture_tracker",
+    # tracker = Node(
+    #     package="object_tracker",
+    #     executable="tracker",
+    #     name="hand_gesture_tracker",
+    #     output="screen"
+    # )
+    # planner = Node(
+    #         package="swarm",
+    #         executable="planner",
+    #         name="SwarmPlanner",
+    #         output="screen"
+    #     )
+
+    offset = Node(
+        package="swarm",
+        executable="lazy",
+        name="lazy_local_pose",
         output="screen"
     )
-    planner = Node(
-            package="swarm",
-            executable="planner",
-            name="SwarmPlanner",
-            output="screen"
-        )
-
+    
     call_service_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,raspi_cam,tracker,planner],
+        actions=[call_service,offset],
     )
 
     # -----------------------------

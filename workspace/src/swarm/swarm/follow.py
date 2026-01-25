@@ -38,7 +38,9 @@ class Follower(Node):
         )
 
 
-        self.namespace=f"uav{os.environ.get('MAV_ID',2)}"
+        self.namespace=f"uav{os.environ.get('MAV_ID')}"
+        self.get_logger().info(f"namespace {self.namespace}")
+        self.z_pos=0.0
         self.altitude = 0.0
         self.stage = 0
         self.roll = 0
@@ -74,14 +76,19 @@ class Follower(Node):
         self.offset = msg
         
     def pos_callback(self,msg):
-        if self.offset is not None:
+        if self.stage==5:
+            self.get_logger().info(f"Going to {msg.point}")
             pos_msg = PoseStamped()
-            pos_msg.pose.position.x = msg.point.x - self.offset.point.x
-            pos_msg.pose.position.y = msg.point.y - self.offset.point.y
-            pos_msg.pose.position.z = msg.point.z - self.offset.point.z
+            pos_msg.pose.position.x = msg.point.x- self.offset.point.x
+            pos_msg.pose.position.y = msg.point.y- self.offset.point.y
+            pos_msg.pose.position.z = msg.point.z- self.offset.point.z
             self.pos_pub.publish(pos_msg)
-        else:
+        elif self.offset is None:
             self.get_logger().warn(f"{self.namespace} offset not found")
+        else:
+            pass
+            # self.get_logger().info(f"{self.namespace} going {msg} ")
+
 
     def control_loop(self):
 
@@ -185,8 +192,13 @@ class Follower(Node):
 
                 self.pos_pub.publish(pose)
             
-        # ---------- STAGE 4: ----------
         elif self.stage == 5:
+            elapsed = (self.get_clock().now() - self.stage_start_time).nanoseconds / 1e9
+            self.get_logger().info(f'Following: {elapsed:.1f} s')
+            if elapsed >=60.0:
+                self.get_logger().info('Following End')
+                pass
+        elif self.stage == 6:
             pass
 
     def state_cb(self, msg):
