@@ -18,7 +18,6 @@ Only Ardupilot `make swarm`
 #### Gazebo Along with Ardupilot
 First Run: `make gzswarm`
 Next Run in a different terminal: `make ardugzswarm`
-
 MAVROS(if required) `make mavswarm`
 
 ### Getting Working environment
@@ -41,6 +40,13 @@ gpio4(UART0) (raspi 4): `make gpio4`
 custom: `make custom DEVICE=/dev/{your_device} BAUD={value}`
 4. Now if using mavros then run `ros2 launch swarm mavros.launch.py` inside tmux
 5. Run your code as you did on simulation
+
+## Development and building on top of swarm system
+1. This system uses zenoh so you need to start zenoh router on any before running any other ROS command. This can either be done by directly running it via the `ros2 run rmw_zenoh_cpp rmw_zenohd` command or if you run any of the launch files in the swarm package it will automatically be done for you.
+2. Running the `lazy` executable in the `swarm` package will publish the position of the drone wrt to uav1's home position on the topic `/uav_{MAV_ID}/local_pos` where MAV_ID is the id of the drone on which the node is running. And publish the offset of it this position of the drone's own home position on the topic `/uav_{MAV_ID}/offset`.
+3. This lazy executable is already run by the `leader.launch.py` file and the `follower.launch.py`, so if you want to understand how to build on top of this system you can modify these files or create your own launch files.
+4. It works by subscribing the global position of all the drones in the swarm and then calculating the offset from its own home position and publishing it. So any node can subscribe to this offset topic and get the relative position of the drone wrt to uav1.
+5. The home position of the uav's are not the their home position per say but it is the average position of 5 seconds of the drones once the GPS initializes.
 
 ## Note:
 1. We are using Zenoh Router instead of default DDS,default DDS chokes the system and is not made for mesh network
