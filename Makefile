@@ -102,8 +102,10 @@ ardugz: ardugzimg
 
 gziris: ardugzimg
 	@echo $(FLAGS)
-	IMG=ardu-gz CMD="gz sim -v4 -r iris_runway.sdf" ./$(GUI_SCRIPT) &
-	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" \
+	IMG=ardu-gz CMD="./single_uav.sh" ./$(GUI_SCRIPT)
+
+arduiris: arduimg
+	$(RUNTIME) run --rm --net host --userns=keep-id -it -v "$(PWD)/ardupilot:/ardupilot" \
 		ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris \
 		--out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --model JSON --console
 
