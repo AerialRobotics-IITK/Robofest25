@@ -244,3 +244,43 @@ def process_frames(frame, origin, locked, distance):
         call_swarm,
         waist_center
     )
+
+
+def main():
+    origin = (0, 0)
+    origin_locked = False
+    distance = 0.0
+
+    cap = cv2.VideoCapture(0)
+
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Error: Failed to read frame from camera.")
+            break
+
+        (
+            processed_frame,
+            origin,
+            origin_locked,
+            distance,
+            call_swarm,
+            waist_center,
+        ) = process_frames(frame, origin, origin_locked, distance)
+
+        cv2.imshow("Pose Control - New Gesture", processed_frame)
+
+        key = cv2.waitKey(1) & 0xFF
+        if key == 27 or key == ord("q"):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    main()

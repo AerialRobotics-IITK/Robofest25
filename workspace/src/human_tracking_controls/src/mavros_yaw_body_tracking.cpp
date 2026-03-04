@@ -474,6 +474,21 @@ private:
         geometry_msgs::msg::TwistStamped twist;
 
         twist.header.stamp = now();
+
+        // --- NEW: Altitude Hold P-Controller ---
+        // 1. Calculate how far we have drifted from the target hover height
+        double z_error = hover_reference_.position.z - vehicle_odom_.position.z;
+
+        // 2. Apply a Proportional gain to push the drone back to target height.
+        // A value between 1.0 and 2.0 is usually a great starting point.
+        double Kp_z = 1.5; 
+        twist.twist.linear.z = Kp_z * z_error;
+
+        // 3. Explicitly command 0 for X and Y to minimize lateral drifting
+        twist.twist.linear.x = 0.0;
+        twist.twist.linear.y = 0.0;
+
+        // 4. Apply your yaw command
         twist.twist.angular.z = yaw_cmd;
 
         vel_pub_->publish(twist);

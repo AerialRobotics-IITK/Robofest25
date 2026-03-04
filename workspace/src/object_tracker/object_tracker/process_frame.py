@@ -12,7 +12,6 @@ pose = mp_pose.Pose(
     min_tracking_confidence=0.45
 )
 
-
 def calculate_angle(a, b, c):
     a = np.array(a)
     b = np.array(b)
@@ -27,19 +26,15 @@ def calculate_angle(a, b, c):
     return np.degrees(np.arccos(np.clip(cosine_angle, -1.0, 1.0)))
 
 
-def map_angle_to_distance(angle, min_angle=60, max_angle=160, max_dist=300):
-    angle = np.clip(angle, min_angle, max_angle)
-    return ((angle - min_angle) / (max_angle - min_angle)) * max_dist
-
-
-def process_frames(frame, origin, locked, distance, tracking_vertical=False):
+def process_frames(frame, origin, locked, active_arm="NONE"):
 
     origin_locked = locked
     origin_x = origin[0] if locked else 0
     origin_y = origin[1] if locked else 0
-    current_tracking_vertical = tracking_vertical
+    current_active_arm = active_arm
     call_swarm = False
     waist_center = (-1, -1)
+    lateral_command = "HOVER" # Default state
 
     frame = cv2.flip(frame, 1)
     rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -72,17 +67,18 @@ def process_frames(frame, origin, locked, distance, tracking_vertical=False):
         def px(p): return (int(p.x * w), int(p.y * h))
 
         # ---- Angles ----
+        # (We still need angles to know if you are bending your arm to activate it)
         right_angle = calculate_angle(px(RS), px(RE), px(RW))
         left_angle = calculate_angle(px(LS), px(LE), px(LW))
 
         # ---- Gesture flags ----
-        pose_horizontal_lock = right_angle < 130 and RW.visibility > 0.6
-        pose_vertical_lock = left_angle < 130 and LW.visibility > 0.6
-        pose_reset = (
-            origin_locked and
-            right_angle > 150 and left_angle > 150 and
-            RW.y > LH.y and LW.y > LH.y and
-            RW.visibility > 0.6 and LW.visibility > 0.6
+        pose_right_lock = right_angle < 130 and RW.visibility > 0.6
+        pose_left_lock = left_angle < 130 and LW.visibility > 0.6
+        
+        # HANDS DOWN FLAG (Wrists below hips, arms mostly straight)
+        pose_hands_down = (
+            right_angle > 140 and left_angle > 140 and
+            RW.y > LH.y and LW.y > LH.y
         )
 
         pose_swarm = (
@@ -94,52 +90,49 @@ def process_frames(frame, origin, locked, distance, tracking_vertical=False):
 
         # ---------- FIX 2: PREVENT AXIS SWITCHING ----------
         if origin_locked:
-            if current_tracking_vertical:
-                pose_horizontal_lock = False
-            else:
-                pose_vertical_lock = False
+            if current_active_arm == "RIGHT":
+                pose_left_lock = False
+            elif current_active_arm == "LEFT":
+                pose_right_lock = False
 
         # ================= STATE MACHINE (PRIORITY) =================
 
         if pose_swarm:
-            distance = 0
+            lateral_command = "HOVER"
             call_swarm = True
-            print("POSE SWARM DETECTED (PRIORITY)")
 
-        elif origin_locked and pose_reset:
+        elif pose_hands_down:
+            # SAFETY SWITCH: Drop hands to disengage and hover
             origin_locked = False
-            origin_x = 0
-            origin_y = 0
-            distance = 0
-            current_tracking_vertical = False
-            print("BOTH HANDS UP - RESET")
+            current_active_arm = "NONE"
+            lateral_command = "HOVER"
 
         elif not origin_locked:
-            if pose_horizontal_lock:
+            if pose_right_lock:
                 origin_locked = True
                 origin_x, origin_y = px(RS)
-                current_tracking_vertical = False
-                distance = 0
-                print("RIGHT ARM LOCKED - HORIZONTAL MODE")
+                current_active_arm = "RIGHT"
 
-            elif pose_vertical_lock:
+            elif pose_left_lock:
                 origin_locked = True
                 origin_x, origin_y = px(LS)
-                current_tracking_vertical = True
-                distance = 0
-                print("LEFT ARM LOCKED - VERTICAL MODE")
+                current_active_arm = "LEFT"
 
-        # ---- Distance update ----
+        # ---- Steering Update ----
         if origin_locked and not call_swarm:
-            angle = left_angle if current_tracking_vertical else right_angle
-            distance = map_angle_to_distance(angle)
+            deadzone1 = 0.10
+            deadzone2 = 0.20  
 
-        # ---- Waist center ----
-        if LH.visibility > 0.5 and RH.visibility > 0.5:
-            abs_cx = int((LH.x + RH.x) * 0.5 * w)
-            abs_cy = int((LH.y + RH.y) * 0.5 * h)
-            waist_center = (abs_cx - w // 2, abs_cy - h // 2)
-            cv2.circle(frame_copy, (abs_cx, abs_cy), 8, (255, 0, 0), -1)
+            if current_active_arm == "RIGHT":
+                # Steering logic based on Right Arm
+                if RW.x > (RS.x + deadzone2):
+                    lateral_command = "MOVE RIGHT"
+
+            elif current_active_arm == "LEFT":
+                # Steering logic based on Left Arm
+               
+                if LW.x < (LS.x - deadzone2):
+                    lateral_command = "MOVE LEFT"
 
         # ---- Visualization ----
         mp_drawing.draw_landmarks(
@@ -148,37 +141,67 @@ def process_frames(frame, origin, locked, distance, tracking_vertical=False):
             mp_pose.POSE_CONNECTIONS
         )
 
-        mode = "VERTICAL" if current_tracking_vertical else "HORIZONTAL"
-        cv2.putText(
-            frame_copy,
-            f"{mode}: {distance:.1f}" if origin_locked else
-            "RIGHT ARM = H | LEFT ARM = V | BOTH UP = RESET",
-            (10, 30),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.7,
-            (0, 255, 0),
-            2
-        )
+        # Draw the current mode
+        display_text = f"{current_active_arm} ARM ACTIVE" if origin_locked else "IDLE - RAISE ARM TO CONTROL"
+        
+        cv2.putText(frame_copy, display_text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+        cv2.putText(frame_copy, f"Steering: {lateral_command}", (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 255), 2)
 
     else:
-        distance = 0
         origin_locked = False
-        cv2.putText(
-            frame_copy,
-            "No pose detected",
-            (10, 30),
-            cv2.FONT_HERSHEY_SIMPLEX,
-            0.6,
-            (0, 0, 255),
-            2
-        )
+        current_active_arm = "NONE"
+        cv2.putText(frame_copy, "No pose detected", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
     return (
         frame_copy,
         (origin_x, origin_y),
         origin_locked,
-        distance,
-        current_tracking_vertical,
+        current_active_arm,
         call_swarm,
-        waist_center
+        waist_center,
+        lateral_command # Passing this out so you can eventually send it to ROS
     )
+
+def main():
+    origin = (0, 0)
+    origin_locked = False
+    active_arm = "NONE" 
+
+    cap = cv2.VideoCapture(0)
+
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Error: Failed to read frame from camera.")
+            break
+
+        (
+            processed_frame,
+            origin,
+            origin_locked,
+            active_arm,
+            call_swarm,
+            waist_center,
+            lateral_command
+        ) = process_frames(
+            frame,
+            origin,
+            origin_locked,
+            active_arm=active_arm,
+        )
+
+        cv2.imshow("Drone Controller", processed_frame)
+
+        key = cv2.waitKey(1) & 0xFF
+        if key == 27 or key == ord("q"):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    main()
