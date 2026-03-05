@@ -37,7 +37,7 @@ def generate_launch_description():
             "namespace": f"uav{os.environ.get('MAV_ID',1)}",
             "tgt_system": str(os.environ.get("MAV_ID",1)),
             "fcu_url": os.environ.get('FCU_URL','/dev/ttyACM0'),
-            "gcs_url": "udp://10.147.210.76:14550",
+            "gcs_url": "udp://10.93.154.245:14550",
             "config_yaml": config_path,
         }.items()
     )
@@ -83,16 +83,16 @@ def generate_launch_description():
     #     )
 
     offset = Node(
-        package="swarm_cpp",
+        package="swarm",
         executable="lazy",
-        name="local_pose",
+        name="lazy_local_pose",
         output="screen"
     )
     
     call_service_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,offset],
-    )
+        actions=[call_service],
+        )
 
     # -----------------------------
     # Build launch description

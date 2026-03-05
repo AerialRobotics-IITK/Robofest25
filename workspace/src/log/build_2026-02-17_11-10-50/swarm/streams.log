@@ -1,0 +1,87 @@
+[1.935s] Invoking command in '/workspace/src/swarm': PYTHONPATH=/workspace/src/build/swarm/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/src/install/swarm/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/swarm build --build-base /workspace/src/build/swarm/build install --record /workspace/src/build/swarm/install.log --single-version-externally-managed install_data
+[2.613s] running egg_info
+[2.615s] creating ../build/swarm/swarm.egg-info
+[2.615s] writing ../build/swarm/swarm.egg-info/PKG-INFO
+[2.616s] writing dependency_links to ../build/swarm/swarm.egg-info/dependency_links.txt
+[2.617s] writing entry points to ../build/swarm/swarm.egg-info/entry_points.txt
+[2.618s] writing requirements to ../build/swarm/swarm.egg-info/requires.txt
+[2.618s] writing top-level names to ../build/swarm/swarm.egg-info/top_level.txt
+[2.618s] writing manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'
+[2.626s] reading manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'
+[2.626s] writing manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'
+[2.627s] running build
+[2.627s] running build_py
+[2.630s] creating /workspace/src/build/swarm/build
+[2.630s] creating /workspace/src/build/swarm/build/lib
+[2.630s] creating /workspace/src/build/swarm/build/lib/swarm
+[2.631s] copying swarm/local_pos_csv_writer.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.631s] copying swarm/drone_sync.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.631s] copying swarm/dist.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.632s] copying swarm/follow.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.632s] copying swarm/__init__.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.632s] copying swarm/go.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.632s] copying swarm/slavery.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.633s] copying swarm/rangefinder.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.633s] copying swarm/pp.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.633s] copying swarm/local_pose.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.634s] copying swarm/planner.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.634s] copying swarm/yaw2.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.635s] copying swarm/lazy_pose.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.635s] copying swarm/tof.py -> /workspace/src/build/swarm/build/lib/swarm
+[2.635s] running install
+[2.636s] running install_lib
+[2.639s] creating /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.639s] copying /workspace/src/build/swarm/build/lib/swarm/local_pos_csv_writer.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.640s] copying /workspace/src/build/swarm/build/lib/swarm/drone_sync.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.640s] copying /workspace/src/build/swarm/build/lib/swarm/dist.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.641s] copying /workspace/src/build/swarm/build/lib/swarm/follow.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.641s] copying /workspace/src/build/swarm/build/lib/swarm/__init__.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.641s] copying /workspace/src/build/swarm/build/lib/swarm/go.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.642s] copying /workspace/src/build/swarm/build/lib/swarm/slavery.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.642s] copying /workspace/src/build/swarm/build/lib/swarm/rangefinder.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.643s] copying /workspace/src/build/swarm/build/lib/swarm/pp.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.643s] copying /workspace/src/build/swarm/build/lib/swarm/local_pose.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.644s] copying /workspace/src/build/swarm/build/lib/swarm/planner.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.644s] copying /workspace/src/build/swarm/build/lib/swarm/yaw2.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.644s] copying /workspace/src/build/swarm/build/lib/swarm/lazy_pose.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.645s] copying /workspace/src/build/swarm/build/lib/swarm/tof.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+[2.646s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/local_pos_csv_writer.py to local_pos_csv_writer.cpython-310.pyc
+[2.648s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/drone_sync.py to drone_sync.cpython-310.pyc
+[2.650s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/dist.py to dist.cpython-310.pyc
+[2.652s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/follow.py to follow.cpython-310.pyc
+[2.657s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/__init__.py to __init__.cpython-310.pyc
+[2.658s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/go.py to go.cpython-310.pyc
+[2.661s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/slavery.py to slavery.cpython-310.pyc
+[2.663s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/rangefinder.py to rangefinder.cpython-310.pyc
+[2.665s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/pp.py to pp.cpython-310.pyc
+[2.671s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/local_pose.py to local_pose.cpython-310.pyc
+[2.674s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/planner.py to planner.cpython-310.pyc
+[2.677s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/yaw2.py to yaw2.cpython-310.pyc
+[2.681s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/lazy_pose.py to lazy_pose.cpython-310.pyc
+[2.685s] byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/tof.py to tof.cpython-310.pyc
+[2.687s] running install_data
+[2.687s] creating /workspace/src/install/swarm/share/ament_index
+[2.687s] creating /workspace/src/install/swarm/share/ament_index/resource_index
+[2.688s] creating /workspace/src/install/swarm/share/ament_index/resource_index/packages
+[2.688s] copying resource/swarm -> /workspace/src/install/swarm/share/ament_index/resource_index/packages
+[2.689s] copying package.xml -> /workspace/src/install/swarm/share/swarm
+[2.689s] creating /workspace/src/install/swarm/share/swarm/launch
+[2.689s] copying launch/leader.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+[2.690s] copying launch/observer.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+[2.690s] copying launch/follower.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+[2.691s] copying launch/mavros.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+[2.691s] copying launch/swarm_mavros.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+[2.691s] running install_egg_info
+[2.697s] Copying ../build/swarm/swarm.egg-info to /workspace/src/install/swarm/lib/python3.10/site-packages/swarm-0.0.0-py3.10.egg-info
+[2.699s] running install_scripts
+[2.768s] Installing finder script to /workspace/src/install/swarm/lib/swarm
+[2.768s] Installing follow script to /workspace/src/install/swarm/lib/swarm
+[2.769s] Installing lazy script to /workspace/src/install/swarm/lib/swarm
+[2.769s] Installing local_pos_csv_writer script to /workspace/src/install/swarm/lib/swarm
+[2.770s] Installing local_pose script to /workspace/src/install/swarm/lib/swarm
+[2.770s] Installing planner script to /workspace/src/install/swarm/lib/swarm
+[2.770s] Installing slavery script to /workspace/src/install/swarm/lib/swarm
+[2.771s] Installing takeoff script to /workspace/src/install/swarm/lib/swarm
+[2.771s] Installing tof script to /workspace/src/install/swarm/lib/swarm
+[2.773s] writing list of installed files to '/workspace/src/build/swarm/install.log'
+[2.873s] Invoked command in '/workspace/src/swarm' returned '0': PYTHONPATH=/workspace/src/build/swarm/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/src/install/swarm/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/swarm build --build-base /workspace/src/build/swarm/build install --record /workspace/src/build/swarm/install.log --single-version-externally-managed install_data

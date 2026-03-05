@@ -16,7 +16,7 @@ def generate_launch_description():
         executable="rmw_zenohd",
         name="zenoh_router",
         output="screen"
-    )
+)   
 
     # -----------------------------
     # 2. MAVROS (apm.launch)

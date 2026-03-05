@@ -1,0 +1,4 @@
+/**:
+  ros__parameters:
+    plugin_blacklist:
+      - distance_sensor

@@ -1,8 +1,0 @@
-/**:
-  ros__parameters:
-    # Overriding specific distance_sensor settings
-    distance_sensor:
-      rangefinder_sub:
-        subscriber: true
-        id: 1
-        orientation: "PITCH_270"

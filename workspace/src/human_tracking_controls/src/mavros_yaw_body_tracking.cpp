@@ -9,6 +9,7 @@
 #include <mavros_msgs/srv/command_tol.hpp>
 
 #include <std_msgs/msg/float32.hpp>
+#include <std_msgs/msg/int32.hpp>
 
 #include <algorithm>
 
@@ -27,9 +28,9 @@ class HumanTrackingNode : public rclcpp::Node
 public:
     HumanTrackingNode()
         : Node("human_tracking_node"),
-          pid_yaw_(0.35, 0.2, 0.2, 0.0, -100.0, 100.0)
+          pid_yaw_(0.1, 0.01, 0.1, 0.0, -100.0, 100.0)
     {
-        namespace_ = declare_parameter<std::string>("namespace", "/uav1");
+        namespace_ = declare_parameter<std::string>("namespace", "/uav3");
 
         init_qos();
         init_publishers();
@@ -67,14 +68,14 @@ private:
 
     // ============================================================
     // ===================== CONSTANTS ============================
-    // ============================================================
+    // ===========================================================
 
     static constexpr float TAKEOFF_ALTITUDE = 1.0f;
 
     static constexpr float WAIST_THRESHOLD_ENTER = 50.0f;
     static constexpr float WAIST_THRESHOLD_EXIT  = 20.0f;
 
-    static constexpr double MAX_YAW_RATE = 1.0;   // rad/s
+    static constexpr double MAX_YAW_RATE = 0.5;   // rad/s
     static constexpr double VISION_TIMEOUT = 0.5; // sat TAKEOFF_ALTITUDE = 1.0f;
     
     // ============================================================
@@ -244,6 +245,13 @@ private:
         RCLCPP_INFO_THROTTLE(
             get_logger(), *get_clock(), 500,
             "Waist: waist_error=%.1f (vision alive)", waist_error_);
+    }
+
+    // <-- NEW CALLBACK FOR LATERAL COMMAND
+    void lateral_callback(const std_msgs::msg::Int32::SharedPtr msg)
+    {
+        lateral_cmd_ = msg->data;
+        RCLCPP_INFO(get_logger(), "Lateral command: %d", lateral_cmd_);
     }
 
     // ============================================================
@@ -419,7 +427,7 @@ private:
 
         double dt = compute_dt();
 
-        yaw_rate_cmd_ = -(pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
+        yaw_rate_cmd_ = (pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
 
         RCLCPP_INFO_THROTTLE(
             get_logger(), *get_clock(), 200,
@@ -474,6 +482,21 @@ private:
         geometry_msgs::msg::TwistStamped twist;
 
         twist.header.stamp = now();
+
+        // --- NEW: Altitude Hold P-Controller ---
+        // 1. Calculate how far we have drifted from the target hover height
+        double z_error = hover_reference_.position.z - vehicle_odom_.position.z;
+
+        // 2. Apply a Proportional gain to push the drone back to target height.
+        // A value between 1.0 and 2.0 is usually a great starting point.
+        double Kp_z = 1.5; 
+        twist.twist.linear.z = Kp_z * z_error;
+
+        // 3. Explicitly command 0 for X and Y to minimize lateral drifting
+        twist.twist.linear.x = 0.0;
+        twist.twist.linear.y = 0.0;
+
+        // 4. Apply your yaw command
         twist.twist.angular.z = yaw_cmd;
 
         vel_pub_->publish(twist);

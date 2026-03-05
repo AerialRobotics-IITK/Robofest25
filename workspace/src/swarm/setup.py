@@ -33,7 +33,8 @@ setup(
             'local_pose = swarm.local_pose:main',
             'planner = swarm.planner:main',
             'slavery = swarm.slavery:main',
-            'lazy = swarm.lazy_pose:main'
+            'lazy = swarm.lazy_pose:main',
+            'circle = swarm.circle:main'
         ],
     },
 )
