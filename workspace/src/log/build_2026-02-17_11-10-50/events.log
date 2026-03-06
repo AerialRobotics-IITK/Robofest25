@@ -1,0 +1,124 @@
+[0.000000] (-) TimerEvent: {}
+[0.001988] (-) JobUnselected: {'identifier': 'ldlidar'}
+[0.002572] (-) JobUnselected: {'identifier': 'object_tracker'}
+[0.002703] (-) JobUnselected: {'identifier': 'rplidar_ros'}
+[0.002776] (swarm) JobQueued: {'identifier': 'swarm', 'dependencies': OrderedDict()}
+[0.002847] (swarm) JobStarted: {'identifier': 'swarm'}
+[0.098829] (-) TimerEvent: {}
+[0.199462] (-) TimerEvent: {}
+[0.300128] (-) TimerEvent: {}
+[0.400749] (-) TimerEvent: {}
+[0.501303] (-) TimerEvent: {}
+[0.601910] (-) TimerEvent: {}
+[0.702603] (-) TimerEvent: {}
+[0.803349] (-) TimerEvent: {}
+[0.904432] (-) TimerEvent: {}
+[1.005050] (-) TimerEvent: {}
+[1.105753] (-) TimerEvent: {}
+[1.206438] (-) TimerEvent: {}
+[1.307053] (-) TimerEvent: {}
+[1.407681] (-) TimerEvent: {}
+[1.508308] (-) TimerEvent: {}
+[1.608866] (-) TimerEvent: {}
+[1.709467] (-) TimerEvent: {}
+[1.810015] (-) TimerEvent: {}
+[1.912164] (-) TimerEvent: {}
+[1.936356] (swarm) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../build/swarm', 'build', '--build-base', '/workspace/src/build/swarm/build', 'install', '--record', '/workspace/src/build/swarm/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/workspace/src/swarm', 'env': {'TMUX': '/tmp/tmux-0/default,26,0', 'FCU_URL': 'serial:///dev/ttyACM0:115200', 'HOSTNAME': 'raspberrypi', 'SHLVL': '2', 'LD_LIBRARY_PATH': '/opt/ros/humble/opt/zenoh_cpp_vendor/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/workspace/src/swarm/swarm', 'TERM_PROGRAM_VERSION': '3.2a', 'ROS_PYTHON_VERSION': '3', 'container': 'podman', 'COLCON_PREFIX_PATH': '/workspace/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'screen', 'MAV_ID': '1', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'RMW_IMPLEMENTATION': 'rmw_zenoh_cpp', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'TERM_PROGRAM': 'tmux', 'AMENT_PREFIX_PATH': '/workspace/install/swarm:/workspace/install/rplidar_ros:/workspace/install/object_tracker:/workspace/install/ldlidar:/opt/ros/humble', 'SHELL': '/bin/bash', 'PWD': '/workspace/src/build/swarm', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/workspace/src/build/swarm/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/workspace/src/install/swarm/lib/python3.10/site-packages:/workspace/build/swarm:/workspace/install/swarm/lib/python3.10/site-packages:/workspace/build/object_tracker:/workspace/install/object_tracker/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'ZENOH_ROUTER_CONFIG_URI': '/root/router_config.json5', 'COLCON': '1', 'TMUX_PANE': '%0', 'CMAKE_PREFIX_PATH': '/workspace/install/rplidar_ros:/workspace/install/ldlidar'}, 'shell': False}
+[2.012300] (-) TimerEvent: {}
+[2.112947] (-) TimerEvent: {}
+[2.213597] (-) TimerEvent: {}
+[2.314283] (-) TimerEvent: {}
+[2.414895] (-) TimerEvent: {}
+[2.515530] (-) TimerEvent: {}
+[2.615097] (swarm) StdoutLine: {'line': b'running egg_info\n'}
+[2.615628] (-) TimerEvent: {}
+[2.617308] (swarm) StdoutLine: {'line': b'creating ../build/swarm/swarm.egg-info\n'}
+[2.617926] (swarm) StdoutLine: {'line': b'writing ../build/swarm/swarm.egg-info/PKG-INFO\n'}
+[2.618872] (swarm) StdoutLine: {'line': b'writing dependency_links to ../build/swarm/swarm.egg-info/dependency_links.txt\n'}
+[2.619646] (swarm) StdoutLine: {'line': b'writing entry points to ../build/swarm/swarm.egg-info/entry_points.txt\n'}
+[2.620122] (swarm) StdoutLine: {'line': b'writing requirements to ../build/swarm/swarm.egg-info/requires.txt\n'}
+[2.620596] (swarm) StdoutLine: {'line': b'writing top-level names to ../build/swarm/swarm.egg-info/top_level.txt\n'}
+[2.621014] (swarm) StdoutLine: {'line': b"writing manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'\n"}
+[2.628513] (swarm) StdoutLine: {'line': b"reading manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'\n"}
+[2.629113] (swarm) StdoutLine: {'line': b"writing manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'\n"}
+[2.629650] (swarm) StdoutLine: {'line': b'running build\n'}
+[2.629951] (swarm) StdoutLine: {'line': b'running build_py\n'}
+[2.632386] (swarm) StdoutLine: {'line': b'creating /workspace/src/build/swarm/build\n'}
+[2.632790] (swarm) StdoutLine: {'line': b'creating /workspace/src/build/swarm/build/lib\n'}
+[2.633064] (swarm) StdoutLine: {'line': b'creating /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.633313] (swarm) StdoutLine: {'line': b'copying swarm/local_pos_csv_writer.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.633566] (swarm) StdoutLine: {'line': b'copying swarm/drone_sync.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.633819] (swarm) StdoutLine: {'line': b'copying swarm/dist.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.634070] (swarm) StdoutLine: {'line': b'copying swarm/follow.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.634600] (swarm) StdoutLine: {'line': b'copying swarm/__init__.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.634890] (swarm) StdoutLine: {'line': b'copying swarm/go.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.635145] (swarm) StdoutLine: {'line': b'copying swarm/slavery.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.635394] (swarm) StdoutLine: {'line': b'copying swarm/rangefinder.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.635681] (swarm) StdoutLine: {'line': b'copying swarm/pp.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.635943] (swarm) StdoutLine: {'line': b'copying swarm/local_pose.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.636597] (swarm) StdoutLine: {'line': b'copying swarm/planner.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.636931] (swarm) StdoutLine: {'line': b'copying swarm/yaw2.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.637314] (swarm) StdoutLine: {'line': b'copying swarm/lazy_pose.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.637587] (swarm) StdoutLine: {'line': b'copying swarm/tof.py -> /workspace/src/build/swarm/build/lib/swarm\n'}
+[2.637825] (swarm) StdoutLine: {'line': b'running install\n'}
+[2.638448] (swarm) StdoutLine: {'line': b'running install_lib\n'}
+[2.641297] (swarm) StdoutLine: {'line': b'creating /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.641828] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/local_pos_csv_writer.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.642327] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/drone_sync.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.642725] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/dist.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.643154] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/follow.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.643598] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/__init__.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.643998] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/go.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.644396] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/slavery.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.644803] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/rangefinder.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.645218] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/pp.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.645631] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/local_pose.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.646068] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/planner.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.646642] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/yaw2.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.647072] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/lazy_pose.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.647346] (swarm) StdoutLine: {'line': b'copying /workspace/src/build/swarm/build/lib/swarm/tof.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm\n'}
+[2.648976] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/local_pos_csv_writer.py to local_pos_csv_writer.cpython-310.pyc\n'}
+[2.650957] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/drone_sync.py to drone_sync.cpython-310.pyc\n'}
+[2.652707] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/dist.py to dist.cpython-310.pyc\n'}
+[2.654965] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/follow.py to follow.cpython-310.pyc\n'}
+[2.659838] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/__init__.py to __init__.cpython-310.pyc\n'}
+[2.660528] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/go.py to go.cpython-310.pyc\n'}
+[2.663212] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/slavery.py to slavery.cpython-310.pyc\n'}
+[2.665701] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/rangefinder.py to rangefinder.cpython-310.pyc\n'}
+[2.667499] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/pp.py to pp.cpython-310.pyc\n'}
+[2.673740] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/local_pose.py to local_pose.cpython-310.pyc\n'}
+[2.676502] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/planner.py to planner.cpython-310.pyc\n'}
+[2.679510] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/yaw2.py to yaw2.cpython-310.pyc\n'}
+[2.683689] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/lazy_pose.py to lazy_pose.cpython-310.pyc\n'}
+[2.687096] (swarm) StdoutLine: {'line': b'byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/tof.py to tof.cpython-310.pyc\n'}
+[2.689042] (swarm) StdoutLine: {'line': b'running install_data\n'}
+[2.689589] (swarm) StdoutLine: {'line': b'creating /workspace/src/install/swarm/share/ament_index\n'}
+[2.690097] (swarm) StdoutLine: {'line': b'creating /workspace/src/install/swarm/share/ament_index/resource_index\n'}
+[2.690493] (swarm) StdoutLine: {'line': b'creating /workspace/src/install/swarm/share/ament_index/resource_index/packages\n'}
+[2.690934] (swarm) StdoutLine: {'line': b'copying resource/swarm -> /workspace/src/install/swarm/share/ament_index/resource_index/packages\n'}
+[2.691440] (swarm) StdoutLine: {'line': b'copying package.xml -> /workspace/src/install/swarm/share/swarm\n'}
+[2.691768] (swarm) StdoutLine: {'line': b'creating /workspace/src/install/swarm/share/swarm/launch\n'}
+[2.692026] (swarm) StdoutLine: {'line': b'copying launch/leader.launch.py -> /workspace/src/install/swarm/share/swarm/launch\n'}
+[2.692458] (swarm) StdoutLine: {'line': b'copying launch/observer.launch.py -> /workspace/src/install/swarm/share/swarm/launch\n'}
+[2.692807] (swarm) StdoutLine: {'line': b'copying launch/follower.launch.py -> /workspace/src/install/swarm/share/swarm/launch\n'}
+[2.693297] (swarm) StdoutLine: {'line': b'copying launch/mavros.launch.py -> /workspace/src/install/swarm/share/swarm/launch\n'}
+[2.693551] (swarm) StdoutLine: {'line': b'copying launch/swarm_mavros.launch.py -> /workspace/src/install/swarm/share/swarm/launch\n'}
+[2.693791] (swarm) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.699192] (swarm) StdoutLine: {'line': b'Copying ../build/swarm/swarm.egg-info to /workspace/src/install/swarm/lib/python3.10/site-packages/swarm-0.0.0-py3.10.egg-info\n'}
+[2.701613] (swarm) StdoutLine: {'line': b'running install_scripts\n'}
+[2.715787] (-) TimerEvent: {}
+[2.770124] (swarm) StdoutLine: {'line': b'Installing finder script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.770782] (swarm) StdoutLine: {'line': b'Installing follow script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.771245] (swarm) StdoutLine: {'line': b'Installing lazy script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.771684] (swarm) StdoutLine: {'line': b'Installing local_pos_csv_writer script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.772117] (swarm) StdoutLine: {'line': b'Installing local_pose script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.772578] (swarm) StdoutLine: {'line': b'Installing planner script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.772989] (swarm) StdoutLine: {'line': b'Installing slavery script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.773492] (swarm) StdoutLine: {'line': b'Installing takeoff script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.773808] (swarm) StdoutLine: {'line': b'Installing tof script to /workspace/src/install/swarm/lib/swarm\n'}
+[2.775178] (swarm) StdoutLine: {'line': b"writing list of installed files to '/workspace/src/build/swarm/install.log'\n"}
+[2.815996] (-) TimerEvent: {}
+[2.874992] (swarm) CommandEnded: {'returncode': 0}
+[2.916183] (-) TimerEvent: {}
+[2.926252] (swarm) JobEnded: {'identifier': 'swarm', 'rc': 0}
+[2.928427] (-) EventReactorShutdown: {}

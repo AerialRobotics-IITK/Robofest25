@@ -1,0 +1,85 @@
+running egg_info
+creating ../build/swarm/swarm.egg-info
+writing ../build/swarm/swarm.egg-info/PKG-INFO
+writing dependency_links to ../build/swarm/swarm.egg-info/dependency_links.txt
+writing entry points to ../build/swarm/swarm.egg-info/entry_points.txt
+writing requirements to ../build/swarm/swarm.egg-info/requires.txt
+writing top-level names to ../build/swarm/swarm.egg-info/top_level.txt
+writing manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'
+reading manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'
+writing manifest file '../build/swarm/swarm.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /workspace/src/build/swarm/build
+creating /workspace/src/build/swarm/build/lib
+creating /workspace/src/build/swarm/build/lib/swarm
+copying swarm/local_pos_csv_writer.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/drone_sync.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/dist.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/follow.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/__init__.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/go.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/slavery.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/rangefinder.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/pp.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/local_pose.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/planner.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/yaw2.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/lazy_pose.py -> /workspace/src/build/swarm/build/lib/swarm
+copying swarm/tof.py -> /workspace/src/build/swarm/build/lib/swarm
+running install
+running install_lib
+creating /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/local_pos_csv_writer.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/drone_sync.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/dist.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/follow.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/__init__.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/go.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/slavery.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/rangefinder.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/pp.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/local_pose.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/planner.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/yaw2.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/lazy_pose.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+copying /workspace/src/build/swarm/build/lib/swarm/tof.py -> /workspace/src/install/swarm/lib/python3.10/site-packages/swarm
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/local_pos_csv_writer.py to local_pos_csv_writer.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/drone_sync.py to drone_sync.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/dist.py to dist.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/follow.py to follow.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/__init__.py to __init__.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/go.py to go.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/slavery.py to slavery.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/rangefinder.py to rangefinder.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/pp.py to pp.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/local_pose.py to local_pose.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/planner.py to planner.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/yaw2.py to yaw2.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/lazy_pose.py to lazy_pose.cpython-310.pyc
+byte-compiling /workspace/src/install/swarm/lib/python3.10/site-packages/swarm/tof.py to tof.cpython-310.pyc
+running install_data
+creating /workspace/src/install/swarm/share/ament_index
+creating /workspace/src/install/swarm/share/ament_index/resource_index
+creating /workspace/src/install/swarm/share/ament_index/resource_index/packages
+copying resource/swarm -> /workspace/src/install/swarm/share/ament_index/resource_index/packages
+copying package.xml -> /workspace/src/install/swarm/share/swarm
+creating /workspace/src/install/swarm/share/swarm/launch
+copying launch/leader.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+copying launch/observer.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+copying launch/follower.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+copying launch/mavros.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+copying launch/swarm_mavros.launch.py -> /workspace/src/install/swarm/share/swarm/launch
+running install_egg_info
+Copying ../build/swarm/swarm.egg-info to /workspace/src/install/swarm/lib/python3.10/site-packages/swarm-0.0.0-py3.10.egg-info
+running install_scripts
+Installing finder script to /workspace/src/install/swarm/lib/swarm
+Installing follow script to /workspace/src/install/swarm/lib/swarm
+Installing lazy script to /workspace/src/install/swarm/lib/swarm
+Installing local_pos_csv_writer script to /workspace/src/install/swarm/lib/swarm
+Installing local_pose script to /workspace/src/install/swarm/lib/swarm
+Installing planner script to /workspace/src/install/swarm/lib/swarm
+Installing slavery script to /workspace/src/install/swarm/lib/swarm
+Installing takeoff script to /workspace/src/install/swarm/lib/swarm
+Installing tof script to /workspace/src/install/swarm/lib/swarm
+writing list of installed files to '/workspace/src/build/swarm/install.log'
