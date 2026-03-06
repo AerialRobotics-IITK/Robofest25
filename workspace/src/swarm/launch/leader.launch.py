@@ -75,15 +75,15 @@ def generate_launch_description():
     #     name="hand_gesture_tracker",
     #     output="screen"
     # )
-    # planner = Node(
-    #         package="swarm",
-    #         executable="planner",
-    #         name="SwarmPlanner",
-    #         output="screen"
-    #     )
+    planner = Node(
+            package="swarm",
+            executable="planner",
+            name="SwarmPlanner",
+            output="screen"
+        )
 
     offset = Node(
-        package="swarm_cpp",
+        package="swarm",
         executable="lazy",
         name="local_pose",
         output="screen"
@@ -91,7 +91,7 @@ def generate_launch_description():
     
     call_service_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,offset],
+        actions=[call_service,offset,planner],
     )
 
     # -----------------------------
