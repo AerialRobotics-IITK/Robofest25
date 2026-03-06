@@ -30,7 +30,7 @@ public:
         : Node("human_tracking_node"),
           pid_yaw_(0.1, 0.01, 0.1, 0.0, -100.0, 100.0)
     {
-        namespace_ = declare_parameter<std::string>("namespace", "/uav2");
+        namespace_ = declare_parameter<std::string>("namespace", "/uav3");
 
         init_qos();
         init_publishers();
@@ -70,7 +70,7 @@ private:
     // ===================== CONSTANTS ============================
     // ===========================================================
 
-    static constexpr float TAKEOFF_ALTITUDE = 1.0f;
+    static constexpr float TAKEOFF_ALTITUDE = 1.3f;
 
     static constexpr float WAIST_THRESHOLD_ENTER = 50.0f;
     static constexpr float WAIST_THRESHOLD_EXIT  = 20.0f;
@@ -380,7 +380,7 @@ private:
             "WAIT_ALTITUDE: z=%.2f (target=%.2f)",
             vehicle_odom_.position.z, TAKEOFF_ALTITUDE);
 
-        if (vehicle_odom_.position.z >= TAKEOFF_ALTITUDE - 0.1)
+        if (vehicle_odom_.position.z >= TAKEOFF_ALTITUDE - 0.25)
         {
             hover_reference_ = vehicle_odom_;
             RCLCPP_INFO(
@@ -434,7 +434,7 @@ private:
 
         double dt = compute_dt();
 
-        yaw_rate_cmd_ = (pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
+        yaw_rate_cmd_ = -(pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
 
         RCLCPP_INFO_THROTTLE(
             get_logger(), *get_clock(), 200,
@@ -503,7 +503,9 @@ private:
             double v_xb = 0.0; // Forward/Backward velocity (keep 0 for now)
             
             // In ROS ENU, Left is Positive Y, Right is Negative Y
-            double v_yb = (lateral_cmd_ == 1) ? -LATERAL_SPEED : LATERAL_SPEED; 
+            double v_yb = (lateral_cmd_ == 1) ? LATERAL_SPEED : -LATERAL_SPEED; 
+            
+	    
 
             // Rotate body-frame velocity into the global ENU frame using the drone's current yaw
             double yaw = vehicle_odom_.orientation.yaw;

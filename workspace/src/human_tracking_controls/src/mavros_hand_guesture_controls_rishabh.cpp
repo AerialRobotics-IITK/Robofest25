@@ -29,7 +29,7 @@ public:
         : Node("human_tracking_node"),
           pid_yaw_(0.1, 0.01, 0.1, 0.0, -100.0, 100.0)
     {
-        namespace_ = declare_parameter<std::string>("namespace", "/uav2");
+        namespace_ = declare_parameter<std::string>("namespace", "/uav3");
 
         init_qos();
         init_publishers();
@@ -432,7 +432,7 @@ private:
 
         double dt = compute_dt();
 
-        yaw_rate_cmd_ = (pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
+        yaw_rate_cmd_ = -(pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
 
         RCLCPP_INFO_THROTTLE(
             get_logger(), *get_clock(), 200,
@@ -498,12 +498,12 @@ private:
         // This is your max distance multiplier. 
         // If MAX_DIST = 1.0, then a speed_factor of 0.5 moves the drone exactly 0.5 meters.
         // If MAX_DIST = 2.0, then a speed_factor of 0.5 moves the drone 1.0 meters.
-        double MAX_LATERAL_DISTANCE = 1.0; 
+        double MAX_LATERAL_DISTANCE = 3.0; 
 
         // In ROS ENU, +Y is Left, -Y is Right.
         // Positive lateral_cmd_ (Right) = Negative Y offset
         // Negative lateral_cmd_ (Left) = Positive Y offset
-        double y_offset_body = -lateral_cmd_ * MAX_LATERAL_DISTANCE; 
+        double y_offset_body = lateral_cmd_ * MAX_LATERAL_DISTANCE; 
         double x_offset_body = 0.0; // No forward/backward movement for now
 
         // Rotate the body-frame offset into the global ENU frame 

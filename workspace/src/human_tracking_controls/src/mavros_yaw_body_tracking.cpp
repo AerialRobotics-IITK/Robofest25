@@ -247,12 +247,6 @@ private:
             "Waist: waist_error=%.1f (vision alive)", waist_error_);
     }
 
-    // <-- NEW CALLBACK FOR LATERAL COMMAND
-    void lateral_callback(const std_msgs::msg::Int32::SharedPtr msg)
-    {
-        lateral_cmd_ = msg->data;
-        RCLCPP_INFO(get_logger(), "Lateral command: %d", lateral_cmd_);
-    }
 
     // ============================================================
     // ===================== CONTROL ==============================

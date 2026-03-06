@@ -98,8 +98,8 @@ def process_frames(frame, origin, locked, active_arm="NONE"):
         
         # --- 4. GESTURE DEFINITIONS ---
         # "Lock" gestures: Arm is raised and bent sharply (under 90 degrees)
-        pose_right_lock = right_angle < 90 and RW.visibility > 0.6
-        pose_left_lock = left_angle < 90 and LW.visibility > 0.6
+        pose_right_lock = right_angle < 90 and RW.visibility > 0.4
+        pose_left_lock = left_angle < 90 and LW.visibility > 0.4
         
         # "Hands Down" gesture: Both arms are relatively straight (>140 deg) 
         # and both wrists are positioned below their respective hips.
@@ -150,9 +150,11 @@ def process_frames(frame, origin, locked, active_arm="NONE"):
 
         # --- 7. VISUALIZATION & HUD ---
         # Calculate and draw the center point between the hips (waist center)
-        if LH.visibility > 0.5 and RH.visibility > 0.5:
-            abs_cx = int((LH.x + RH.x) * 0.5 * w)
-            abs_cy = int((LH.y + RH.y) * 0.5 * h)
+        print(LS)
+        print(RS)
+        if LS.visibility > 0.3 and RS.visibility > 0.3:
+            abs_cx = int((LS.x + RS.x) * 0.5 * w)
+            abs_cy = int((LS.y + RS.y) * 0.5 * h)
             waist_center = (abs_cx - w // 2, abs_cy - h // 2)
             cv2.circle(frame_copy, (abs_cx, abs_cy), 8, (255, 0, 0), -1)
 
