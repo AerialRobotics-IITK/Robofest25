@@ -44,16 +44,9 @@ def generate_launch_description():
     )
     # 3. Offset Publisher
     offset = Node(
-        package="swarm",
+        package="swarm_cpp",
         executable="lazy",
         name="local_pose",
-        output="screen"
-    )
-
-    slavery = Node(
-        package="swarm",
-        executable="slavery",
-        name="Slavery",
         output="screen"
     )
 
@@ -78,7 +71,7 @@ def generate_launch_description():
     )
     start_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,offset,slavery,follower],
+        actions=[call_service,offset,follower],
     )
     # -----------------------------
     # Build launch description
