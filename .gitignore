@@ -1,3 +1,4 @@
 req
 deploy
 ardupilot/
+workspace/src/object_tracker/object_tracker/my_env_name
