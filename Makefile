@@ -37,10 +37,7 @@ SWARM_ARDU_GZ_CMD ?=sim_vehicle.py -v Copter -f gazebo-iris --out=udp:0.0.0.0:14
 										--console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast --model JSON
 MAV_SWARM ?="ros2 launch swarm swarm_mavros.launch.py"
 
-req:
-	sudo apt-get update && sudo apt-get install -y $(RUNTIME) tmux && touch req
-
-image: req
+image:
 	$(RUNTIME) build -t $(IMAGE) .
 
 usb: image
@@ -75,7 +72,7 @@ local: image
 ardupilot:
 	git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
 
-arduimg: ardupilot req
+arduimg: ardupilot
 	cd ardupilot && PATH=$(PATH) PWD=$(PWD)/ardupilot $(RUNTIME) build . -t ardupilot --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID)
 
 ardu: arduimg
@@ -93,7 +90,7 @@ ardugzswarm: arduimg
 mavswarm: image
 	$(RUNTIME) run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) -v "$(PWD)/workspace/src:/workspace/src" --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
-ardugzimg: req arduimg
+ardugzimg: arduimg
 	$(RUNTIME) build -t ardu-gz --build-arg NUM=$(NUM) --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
 
 ardugz: ardugzimg
