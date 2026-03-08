@@ -44,28 +44,25 @@ pi-setup:
 image:
 	$(RUNTIME) build -t $(IMAGE) .
 
-usb: image
+usb:
 	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-gpio: image
+gpio:
 	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-gpio4: image
+gpio4:
 	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-ama2: image
+ama2:
 	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
-
-deploy: image
-	touch deploy && CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./deploy.sh
 
 run:
 	$(RUNTIME) start -ai swarm_cont
 
-custom: image
+custom:
 	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-local: image
+local:
 	$(RUNTIME) run -it --rm --net host \
 		--privileged \
   	-v /run/udev:/run/udev \
@@ -91,7 +88,7 @@ swarm: arduimg
 ardugzswarm: arduimg
 	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_ARDU_GZ_CMD)
 
-mavswarm: image
+mavswarm:
 	$(RUNTIME) run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) -v "$(PWD)/workspace/src:/workspace/src" --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
 ardugzimg: arduimg

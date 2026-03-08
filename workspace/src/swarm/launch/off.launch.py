@@ -78,7 +78,7 @@ def generate_launch_description():
     )
     start_after_delay = TimerAction(
         period=5.0,
-        actions=[call_service,offset,follower],
+        actions=[call_service,offset],
     )
     # -----------------------------
     # Build launch description
