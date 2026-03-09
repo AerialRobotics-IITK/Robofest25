@@ -81,7 +81,7 @@ class Follower(Node):
             pos_msg = PoseStamped()
             pos_msg.pose.position.x = msg.point.x- self.offset.point.x
             pos_msg.pose.position.y = msg.point.y- self.offset.point.y
-            pos_msg.pose.position.z = msg.point.z- self.offset.point.z
+            pos_msg.pose.position.z = 1.5
             self.pos_pub.publish(pos_msg)
         elif self.offset is None:
             self.get_logger().warn(f"{self.namespace} offset not found")

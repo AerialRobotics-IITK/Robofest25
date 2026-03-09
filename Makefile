@@ -19,7 +19,11 @@ $(error Invalid NVIDIA value '$(NVIDIA)'. Use 0, 1 or 2)
 endif
 
 FLAGS := $(FLAGS) $(NVIDIA_FLAGS)
+WIFI_DEV ?=wlx3460f9ff4a4b
+SSID ?=shadow
 IMAGE ?=swarm
+CONT_NAME ?=swarm_cont
+REPLACE ?=0
 CMD ?=tmux
 USER_UID ?=1000
 USER_GID ?=1000
@@ -37,35 +41,39 @@ SWARM_ARDU_GZ_CMD ?=sim_vehicle.py -v Copter -f gazebo-iris --out=udp:0.0.0.0:14
 										--console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast --model JSON
 MAV_SWARM ?="ros2 launch swarm swarm_mavros.launch.py"
 
-req:
-	sudo apt-get update && sudo apt-get install -y $(RUNTIME) tmux && touch req
+-include .env
 
-image: req
+pi-setup:
+	sudo apt-get update && apt-get install -y podman neovim ripgrep fd-find chrony htop tmux git gh
+	sudo systemctl enable --now chrony
+
+image:
 	$(RUNTIME) build -t $(IMAGE) .
 
-usb: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+usb:
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+			FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-gpio: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+gpio:
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-gpio4: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+gpio4:
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-ama2: image
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+ama2:
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-deploy: image
-	touch deploy && CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./deploy.sh
 
-run:
-	$(RUNTIME) start -ai swarm_cont
+custom:
+	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-custom: image
-	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
-
-local: image
+local:
 	$(RUNTIME) run -it --rm --net host \
+  	--name $(CONT_NAME) \
 		--privileged \
   	-v /run/udev:/run/udev \
 		-e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) \
@@ -75,7 +83,7 @@ local: image
 ardupilot:
 	git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
 
-arduimg: ardupilot req
+arduimg: ardupilot
 	cd ardupilot && PATH=$(PATH) PWD=$(PWD)/ardupilot $(RUNTIME) build . -t ardupilot --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID)
 
 ardu: arduimg
@@ -90,10 +98,10 @@ swarm: arduimg
 ardugzswarm: arduimg
 	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" --userns=keep-id ardupilot:latest $(SWARM_ARDU_GZ_CMD)
 
-mavswarm: image
+mavswarm:
 	$(RUNTIME) run -it --rm --net host -e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) -v "$(PWD)/workspace/src:/workspace/src" --group-add keep-groups $(IMAGE) $(MAV_SWARM)
 
-ardugzimg: req arduimg
+ardugzimg: arduimg
 	$(RUNTIME) build -t ardu-gz --build-arg NUM=$(NUM) --build-arg USER_UID=$(USER_UID) --build-arg USER_GID=$(USER_GID) ./ardupilot_gazebo_swarm
 
 ardugz: ardugzimg
@@ -111,3 +119,10 @@ arduiris: arduimg
 
 gzswarm: ardugzimg
 	IMG=ardu-gz CMD="gz sim -v4 -r generated_swarm.sdf" ./$(GUI_SCRIPT)
+
+hotspot:
+	nmcli dev wifi hotspot ifname $(WIFI_DEV) ssid $(SSID) password $(WIFI_PASSWD)
+
+gateway:
+	WIFI_DEV=$(WIFI_DEV) ./Tools/internet_gateway.sh
+

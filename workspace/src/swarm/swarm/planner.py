@@ -40,7 +40,7 @@ class Planner(Node):
         self.drone2_pose = None
         self.drone3_pose = None
 
-        self.mutual_dist = 3
+        self.mutual_dist = 1.5
 
         self.drone1_sub = self.create_subscription(
             PointStamped,
