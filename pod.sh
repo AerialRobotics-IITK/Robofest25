@@ -6,4 +6,4 @@ $RUNTIME run -it --rm --net host \
   --device $DEVICE \
   -e MAV_ID -e FCU_URL \
   --group-add keep-groups $IMAGE $CMD
-  # --device $DEVICE \
+# --device $DEVICE \
