@@ -19,10 +19,11 @@ $(error Invalid NVIDIA value '$(NVIDIA)'. Use 0, 1 or 2)
 endif
 
 FLAGS := $(FLAGS) $(NVIDIA_FLAGS)
-WIFI_DEV :=wlx3460f9ff4a4b
-SSID :=shadow
+WIFI_DEV ?=wlx3460f9ff4a4b
+SSID ?=shadow
 IMAGE ?=swarm
 CONT_NAME ?=swarm_cont
+REPLACE ?=0
 CMD ?=tmux
 USER_UID ?=1000
 USER_GID ?=1000
@@ -50,22 +51,25 @@ image:
 	$(RUNTIME) build -t $(IMAGE) .
 
 usb:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+			FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 gpio:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 gpio4:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 ama2:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME) FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
-run:
-	$(RUNTIME) start -ai swarm_cont
 
 custom:
-	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME) FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
+	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 local:
 	$(RUNTIME) run -it --rm --net host \
