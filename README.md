@@ -21,7 +21,9 @@ Next Run in a different terminal: `make ardugzswarm`
 MAVROS(if required) `make mavswarm`
 
 ### Getting Working environment
-4. Get a working environment by running
+4. Build the image using
+`make image`
+5. Get a working environment by running
 `make local`
 
 ## Deployment Setup
@@ -33,13 +35,14 @@ MAVROS(if required) `make mavswarm`
 
 1. Place this folder either through zipping and sending it over ssh or git clone the repo (you may remove the --recursive or else it will only cause it to take a little more space)
 2. Add the ip address of all the drones or zenoh systems you want to connect to in `./zenoh/router_config.json5`
-3. Now run one of the following commands
+3. Build image using `make image`
+4. Now run one of the following commands
 USB: `make usb MAV_ID=2` or leave if MAV_ID required is 1 `make usb`
 gpio(UART0) (raspi 5): `make gpio`
 gpio4(UART0) (raspi 4): `make gpio4`
 custom: `make custom DEVICE=/dev/{your_device} BAUD={value}`
-4. Now if using mavros then run `ros2 launch swarm mavros.launch.py` inside tmux
-5. Run your code as you did on simulation
+5. Now if using mavros then run `ros2 launch swarm mavros.launch.py` inside tmux
+6. Run your code as you did on simulation
 
 ## Development and building on top of swarm system
 1. This system uses zenoh so you need to start zenoh router on any before running any other ROS command. This can either be done by directly running it via the `ros2 run rmw_zenoh_cpp rmw_zenohd` command or if you run any of the launch files in the swarm package it will automatically be done for you.
