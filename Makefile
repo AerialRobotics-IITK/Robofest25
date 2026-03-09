@@ -22,6 +22,7 @@ FLAGS := $(FLAGS) $(NVIDIA_FLAGS)
 WIFI_DEV :=wlx3460f9ff4a4b
 SSID :=shadow
 IMAGE ?=swarm
+CONT_NAME ?=swarm_cont
 CMD ?=tmux
 USER_UID ?=1000
 USER_GID ?=1000
@@ -68,6 +69,7 @@ custom:
 
 local:
 	$(RUNTIME) run -it --rm --net host \
+  	--name $(CONT_NAME) \
 		--privileged \
   	-v /run/udev:/run/udev \
 		-e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) \
