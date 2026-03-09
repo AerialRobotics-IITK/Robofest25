@@ -1,3 +1,4 @@
 req
 deploy
 ardupilot/
+.env

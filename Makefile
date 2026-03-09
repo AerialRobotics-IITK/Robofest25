@@ -19,6 +19,8 @@ $(error Invalid NVIDIA value '$(NVIDIA)'. Use 0, 1 or 2)
 endif
 
 FLAGS := $(FLAGS) $(NVIDIA_FLAGS)
+WIFI_DEV :=wlx3460f9ff4a4b
+SSID :=shadow
 IMAGE ?=swarm
 CMD ?=tmux
 USER_UID ?=1000
@@ -37,8 +39,10 @@ SWARM_ARDU_GZ_CMD ?=sim_vehicle.py -v Copter -f gazebo-iris --out=udp:0.0.0.0:14
 										--console --count $(NUM) --auto-sysid --location CMAC --auto-offset-line 0,2 --mcast --model JSON
 MAV_SWARM ?="ros2 launch swarm swarm_mavros.launch.py"
 
+-include .env
+
 pi-setup:
-	sudo apt-get update && apt-get install -y podman neovim ripgrep fd-find chrony htop tmux
+	sudo apt-get update && apt-get install -y podman neovim ripgrep fd-find chrony htop tmux git gh
 	sudo systemctl enable --now chrony
 
 image:
@@ -109,3 +113,10 @@ arduiris: arduimg
 
 gzswarm: ardugzimg
 	IMG=ardu-gz CMD="gz sim -v4 -r generated_swarm.sdf" ./$(GUI_SCRIPT)
+
+hotspot:
+	nmcli dev wifi hotspot ifname $(WIFI_DEV) ssid $(SSID) password $(WIFI_PASSWD)
+
+gateway:
+	WIFI_DEV=$(WIFI_DEV) ./Tools/internet_gateway.sh
+
