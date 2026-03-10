@@ -1,5 +1,5 @@
 #!/bin/bash
-docker run --security-opt label=disable \
+docker run -it -u $(id -u):$(id -g) --security-opt label=disable \
   --device=/dev/dri \
   -e XDG_RUNTIME_DIR=/tmp \
   -e DISPLAY \
@@ -10,4 +10,4 @@ docker run --security-opt label=disable \
   --net host \
   --gpus '"all","capabilities=compute,utility,graphics"' \
   --rm \
-   $IMG $CMD 
+  $IMG $CMD
