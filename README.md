@@ -60,3 +60,4 @@ custom: `make custom DEVICE=/dev/{your_device} BAUD={value}`
 6. You need to add how to install you dependencies inside `Dockerfile` in this folder for your code to compile
 7. Nvidia users might want to install Nvidia Container Tookit and then add the parameter `RUNTIME=docker` while running the make command
 8. You need to set `WIFI_PASSWD` environment variable in .env file for make hotspot to work
+9. If you once connected with USB then gpio (or vice versa) make sure to use `REPLACE=1` env variable while running make command
