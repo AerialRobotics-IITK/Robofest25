@@ -85,8 +85,9 @@ public:
             cerr << "[AStar] Start or Goal out of bounds!" << endl;
             return {};
         }
-        if (isOccupied(sx, sy) || isOccupied(gx, gy)) {
-            cerr << "[AStar] Start or Goal is in collision!" << endl;
+        if (isOccupied(gx, gy)) {
+            
+            cerr << "[AStar]Goal is in collision!" << endl;
             return {};
         }
 
