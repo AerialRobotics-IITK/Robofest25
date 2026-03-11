@@ -85,10 +85,28 @@ public:
             cerr << "[AStar] Start or Goal out of bounds!" << endl;
             return {};
         }
+        if (isOccupied(sx, sy)) {
+            auto new_start = findNearestFree(sx, sy);
+            if (new_start.x() < 0) {
+                cerr << "[AStar] No free cell near start!" << endl;
+                return {};
+            }
+            cerr << "[AStar] Start projected to free cell: "
+                << new_start.x() << "," << new_start.y() << endl;
+            sx = new_start.x();
+            sy = new_start.y();
+        }
+
         if (isOccupied(gx, gy)) {
-            
-            cerr << "[AStar]Goal is in collision!" << endl;
-            return {};
+            auto new_goal = findNearestFree(gx, gy);
+            if (new_goal.x() < 0) {
+                cerr << "[AStar] No free cell near goal!" << endl;
+                return {};
+            }
+            cerr << "[AStar] Goal projected to free cell: "
+                << new_goal.x() << "," << new_goal.y() << endl;
+            gx = new_goal.x();
+            gy = new_goal.y();
         }
 
         resetNodes();
@@ -215,6 +233,51 @@ private:
         }), d.end());
         
         return d;
+    }
+
+    Eigen::Vector2i findNearestFree(int sx, int sy) const {
+
+        if (!inBounds(sx, sy))
+            return Eigen::Vector2i(-1, -1);
+
+        if (!isOccupied(sx, sy))
+            return Eigen::Vector2i(sx, sy);
+
+        std::vector<uint8_t> visited(node_count, 0);
+        std::queue<Eigen::Vector2i> q;
+
+        q.emplace(sx, sy);
+        visited[cellIndex(sx, sy)] = 1;
+
+        const int dx4[4] = {1, -1, 0, 0};
+        const int dy4[4] = {0, 0, 1, -1};
+
+        while (!q.empty()) {
+            auto p = q.front();
+            q.pop();
+
+            for (int i = 0; i < 4; ++i) {
+                int nx = p.x() + dx4[i];
+                int ny = p.y() + dy4[i];
+
+                if (!inBounds(nx, ny))
+                    continue;
+
+                size_t idx = cellIndex(nx, ny);
+                if (visited[idx])
+                    continue;
+
+                visited[idx] = 1;
+
+                if (!isOccupied(nx, ny)) {
+                    return Eigen::Vector2i(nx, ny);
+                }
+
+                q.emplace(nx, ny);
+            }
+        }
+
+        return Eigen::Vector2i(-1, -1);  // no free cell found
     }
     
     void cleanup() {

@@ -63,8 +63,7 @@ public:
         }
 
         // Inflate obstacles
-        map_inflated_ = ObstacleInflator::inflateObstacles(
-            map, width_, height_, cellSizeCm_/100, droneRadiusCm_);
+        map_inflated_ = map;
 
         // Load into polytope generator
         poly_obj_.loadMapData(map_inflated_);
@@ -72,10 +71,10 @@ public:
         // Load into planner
         //planner_.loadMap(map_inflated_, width_, height_);
 
-        //if (planner_.isOccupied(sx, sy) || planner_.isOccupied(gx, gy)) {
-        //    std::cerr << "[CorridorBuilder] Start or goal in obstacle\n";
-        //    return false;
-        //}
+        if (planner_.isOccupied(sx, sy) || planner_.isOccupied(gx, gy)) {
+           std::cerr << "[CorridorBuilder] Start or goal in obstacle\n";
+           return false;
+        }
 
         // Plan path
         //double sh = 0.0, gh = 0.0;

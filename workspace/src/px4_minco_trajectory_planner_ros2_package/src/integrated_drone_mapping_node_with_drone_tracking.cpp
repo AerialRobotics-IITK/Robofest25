@@ -109,20 +109,21 @@ private:
   static constexpr float GRID_H = 50.0f;
   static constexpr float RES = 0.05f;
 
-  /* ================= GLOBAL GOAL ================= */
-
-  static constexpr double GOAL_X = 10.0f;
-  static constexpr double GOAL_Y = -7.0f;
-  static constexpr double GOAL_Z = 1.0f;
-
-  static constexpr double DRONE_RADIUS_CM = 20.0;
-  static constexpr double LOOKAHEAD_DIST = 4.0;
+  /* ================= RUNTIME PARAMS ================= */
+  double goal_x_{20.0};
+  double goal_y_{-9.0};
+  double goal_z_{1.0};
+  double drone_radius_cm_{35.0};
+  int lookahead_indices_{200};
+  double max_vel_{0.5};
+  double pipeline_step_duration_{0.2};
 
   /* ================= GRID ================= */
 
   int grid_w_ = GRID_W / RES;
   int grid_h_ = GRID_H / RES;
   int replan_id_{0};
+  bool replanning_{false};
   /* ================= STATE ================= */
 
   double x_{0}, y_{0}, z_{1.0}, yaw_{0};
@@ -228,6 +229,15 @@ private:
                   "swarm.peer_timeout_sec must be > 0. Falling back to 0.3s.");
       swarm_peer_timeout_sec_ = 0.3;
     }
+
+    // Load newly added dynamic params
+    goal_x_ = declare_parameter("goal_x", 20.0);
+    goal_y_ = declare_parameter("goal_y", -9.0);
+    goal_z_ = declare_parameter("goal_z", 1.0);
+    drone_radius_cm_ = declare_parameter("drone_radius_cm", 35.0);
+    max_vel_ = declare_parameter("max_vel", 0.5);
+    lookahead_indices_ = declare_parameter("lookahead_indices", 200);
+    pipeline_step_duration_ = declare_parameter("pipeline_step_duration", 0.2);
   }
 
   Trajectory<3> path_to_trajectory(const nav_msgs::msg::Path &path) const {
@@ -378,7 +388,7 @@ private:
   void init_sfc() {
 
     corridor_ = std::make_shared<CorridorBuilder>(grid_w_, grid_h_, RES,
-                                                  RES * 100.0, DRONE_RADIUS_CM);
+                                                  RES * 100.0, drone_radius_cm_);
   }
 
   void init_ros() {
@@ -437,7 +447,7 @@ private:
   void init_timer() {
 
     pipeline_step_timer_ = create_wall_timer(
-        0.3s, std::bind(&IntegratedMappingSFCGCOPTER::pipeline_step, this));
+        std::chrono::duration<double>(pipeline_step_duration_), std::bind(&IntegratedMappingSFCGCOPTER::pipeline_step, this));
 
     command_loop_timer_ = create_wall_timer(
         0.01s, std::bind(&IntegratedMappingSFCGCOPTER::command_loop, this));
@@ -522,7 +532,7 @@ private:
     auto raw_bin = build_binary_map();
 
     bin_map_ = ObstacleInflator::inflateObstacles(raw_bin, grid_w_, grid_h_,
-                                                  RES, DRONE_RADIUS_CM);
+                                                  RES, drone_radius_cm_);
 
     // std::ofstream file("binary_map_log.txt"); // overwrite mode
 
@@ -611,14 +621,15 @@ private:
     if (has_traj_) {
 
       need_replan = !trajectory_is_safe(global_traj_,
-                                        800, // lookahead index = 400
+                                       lookahead_indices_, // lookahead index
                                         0.05, bin_map_);
     }
 
     if (!need_replan)
       return;
 
-    
+    replanning_ = true;
+    publish_stop_velocity();
 
     RCLCPP_WARN(get_logger(), "🔄 Replanning...");
 
@@ -774,7 +785,7 @@ private:
     // Acceleration (col 2) stays 0 unless you have filtered IMU data
 
     // Goal State: Desired position, stopping at rest (v=0, a=0)
-    tail.col(0) << GOAL_X, GOAL_Y, GOAL_Z;
+    tail.col(0) << goal_x_, goal_y_, goal_z_;
   }
 
   /* ========================================================= */
@@ -851,6 +862,7 @@ private:
 
     RCLCPP_WARN(get_logger(), "Updating the new trajectory planner");
     store_traj(traj);
+    replanning_ = false;
     
     replan_id_++;
     save_planned_traj(); 
@@ -1108,6 +1120,17 @@ private:
   void tracking_pp_controller(double &vx, double &vy, double &vz) {
     vx = vy = vz = 0.0;
 
+    // if (is_occupied(vehicle_odom_.position.x,
+    //                 vehicle_odom_.position.y,
+    //                 grid_w_, bin_map_)) {
+
+    //     RCLCPP_ERROR(get_logger(), "INSIDE OBSTACLE — EMERGENCY STOP");
+
+    //     publish_stop_velocity();
+    //     stage_ = FlightStage::HOVER;
+    //     return;
+    // }
+
     // ------------- Safety: no odom -------------
     if (!has_odom_) {
 
@@ -1262,8 +1285,8 @@ private:
     double cmd_vx = ref_vx + KP_POS * ex + KV_VEL * evx + KA_ACC*ref_ax;
     double cmd_vy = ref_vy + KP_POS * ey + KV_VEL * evy + KA_ACC*ref_ay;
 
-    cmd_vx = std::clamp(cmd_vx, -1.0, 1.0);
-    cmd_vy = std::clamp(cmd_vy, -1.0, 1.0);
+    cmd_vx = std::clamp(cmd_vx, -max_vel_, max_vel_);
+    cmd_vy = std::clamp(cmd_vy, -max_vel_, max_vel_);
 
     vx = cmd_vx;
     vy = cmd_vy;
@@ -1431,6 +1454,11 @@ private:
   }
 
   void handle_tracking() {
+
+    if (replanning_) {
+        publish_stop_velocity();
+        return;
+    }
 
     double vx, vy, vz;
 
