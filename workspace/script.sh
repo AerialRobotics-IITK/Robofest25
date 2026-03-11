@@ -1,0 +1,4 @@
+#!/bin/bash
+colcon build --packages-select px4_minco_trajectory_planner_ros2_package
+source install/setup.bash
+ros2 run px4_minco_trajectory_planner_ros2_package integrated_drone_mapping_node_with_drone_tracking

@@ -78,7 +78,7 @@ local:
   	-v /run/udev:/run/udev \
 		-e MAV_ID -e NUM=$(NUM) -e FCU_URL=$(FCU_URL) \
   	-v "$(PWD)/workspace/src:/workspace/src" \
-		--group-add keep-groups $(IMAGE) $(CMD)
+		$(IMAGE) $(CMD)
 
 ardupilot:
 	git clone --recurse-submodules https://github.com/ArduPilot/ardupilot.git
@@ -113,7 +113,7 @@ gziris: ardugzimg
 	IMG=ardu-gz CMD="./single_uav.sh" ./$(GUI_SCRIPT)
 
 arduiris: arduimg
-	$(RUNTIME) run --rm --net host --userns=keep-id -it -v "$(PWD)/ardupilot:/ardupilot" \
+	$(RUNTIME) run --rm --net host -it -v "$(PWD)/ardupilot:/ardupilot" \
 		ardupilot:latest sim_vehicle.py -v ArduCopter -f gazebo-iris \
 		--out=udp:0.0.0.0:14550 --out=udp:0.0.0.0:14551 --model JSON --console
 

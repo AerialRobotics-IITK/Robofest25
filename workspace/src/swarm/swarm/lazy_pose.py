@@ -12,6 +12,7 @@ class HomePositionNode(Node):
     def __init__(self):
         # Set namespace from environment variable, defaulting to uav2
         self.namespace = f"uav{os.environ.get('MAV_ID', 2)}"
+        self.leader_namespace = f"uav{os.environ.get('LEADER_ID', 1)}"
         
         # Initialize node with namespace
         super().__init__('home_position_node', namespace=self.namespace)
@@ -46,7 +47,7 @@ class HomePositionNode(Node):
         # Subscribers
         self.uav1_global_sub = self.create_subscription(
             NavSatFix,
-            '/uav1/global_position/global',
+            f'/{self.leader_namespace}/global_position/global',
             self.uav1_global_callback,
             self.qos_profile
         )
