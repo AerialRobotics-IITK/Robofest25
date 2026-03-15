@@ -9,10 +9,11 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
+  <depend>geometry_msgs</depend>
   <depend>rclcpp</depend>
+  <depend>mavros_msgs</depend>
   <depend>std_msgs</depend>
-  
-  <exec_depend>libiio</exec_depend>
+  <depend>libiio</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

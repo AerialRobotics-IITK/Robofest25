@@ -11,6 +11,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ─── Find ROS 2 Packages ───
 find_package(ament_cmake REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(mavros_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 
@@ -24,16 +26,28 @@ if(NOT IIO_LIBRARY)
   message(FATAL_ERROR "libiio not found! Please install it (e.g., sudo apt install libiio-dev)")
 endif()
 
-# ─── Build the Node ───
+# ─── Build the Nodes ───
 add_executable(mine_detector src/port.cpp)
+add_executable(drone_node src/dronenode.cpp)
 
 # Target Include Directories
 target_include_directories(mine_detector PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
+target_include_directories(drone_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+
 # Ament standard dependency linking
 ament_target_dependencies(mine_detector
+  rclcpp
+  std_msgs
+)
+
+ament_target_dependencies(drone_node
+  geometry_msgs
+  mavros_msgs
   rclcpp
   std_msgs
 )
@@ -45,7 +59,9 @@ target_link_libraries(mine_detector
 )
 
 # ─── Installation ───
-install(TARGETS mine_detector
+install(TARGETS
+  mine_detector
+  drone_node
   DESTINATION lib/${PROJECT_NAME})
 
 ament_package()
