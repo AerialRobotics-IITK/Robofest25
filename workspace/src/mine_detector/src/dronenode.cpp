@@ -42,7 +42,6 @@ public:
     sub_ = create_subscription<std_msgs::msg::Float64>(
         "/timestamp_pipeline", 10,
         std::bind(&DroneNode::pipeline_callback, this, std::placeholders::_1));
-
     state_sub_ = create_subscription<mavros_msgs::msg::State>(
         namespace_ + "/state", rclcpp::QoS(10).best_effort(),
         std::bind(&DroneNode::mavros_state_callback, this,
