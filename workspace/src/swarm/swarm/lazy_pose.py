@@ -90,10 +90,11 @@ class HomePositionNode(Node):
         if self.global_start_time is None:
             self.global_start_time = self.get_clock().now()
             
-        current_time = self.get_clock().now()
-        elapsed = (current_time - self.global_start_time).nanoseconds / 1e9
+        # current_time = self.get_clock().now()
+        # elapsed = (current_time - self.global_start_time).nanoseconds / 1e9
         
-        if elapsed <= 5.0:
+        stop_condition = len(self.own_global_positions)>50
+        if not stop_condition:
             self.uav1_global_positions.append([
                 msg.latitude,
                 msg.longitude,
@@ -108,10 +109,12 @@ class HomePositionNode(Node):
         if self.global_start_time is None:
             self.global_start_time = self.get_clock().now()
             
-        current_time = self.get_clock().now()
-        elapsed = (current_time - self.global_start_time).nanoseconds / 1e9
+        # current_time = self.get_clock().now()
+        # elapsed = (current_time - self.global_start_time).nanoseconds / 1e9
         
-        if elapsed <= 5.0:
+        stop_condition = len(self.own_global_positions)>50
+
+        if not stop_condition:
             self.own_global_positions.append([
                 msg.latitude,
                 msg.longitude,
@@ -119,13 +122,13 @@ class HomePositionNode(Node):
             ])
         
         # Check if we have enough data from both drones after 5 seconds
-        if elapsed > 5.0 and not self.global_averaging_complete:
+        if stop_condition and not self.global_averaging_complete:
             if len(self.uav1_global_positions) > 0 and len(self.own_global_positions) > 0:
                 self.global_averaging_complete = True
                 self.offset_position = self.calculate_offset_vector()
                 self.get_logger().info(f'Offset calculation complete: {self.offset_position}')
-            else:
-                self.get_logger().warn('Insufficient global position data from one or both drones')
+        elif not self.global_averaging_complete:
+            self.get_logger().info("Collecting onw global data")
 
     def own_local_callback(self, msg):
         """Handle own local position - publishes position minus offset"""
