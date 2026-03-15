@@ -1,6 +1,7 @@
 #include <rclcpp/rclcpp.hpp>
 
 #include <geometry_msgs/msg/pose_stamped.hpp>
+#include <geometry_msgs/msg/quaternion.hpp>
 #include <mavros_msgs/msg/state.hpp>
 #include <mavros_msgs/srv/command_bool.hpp>
 #include <mavros_msgs/srv/command_tol.hpp>
@@ -101,9 +102,13 @@ private:
   mavros_msgs::msg::State current_state_;
   geometry_msgs::msg::PoseStamped current_pose_;
   bool has_pose_{false};
+  bool start_pose_captured_{false};
   bool takeoff_requested_{false};
   bool land_requested_{false};
 
+  double start_x_{0.0};
+  double start_y_{0.0};
+  double start_yaw_{0.0};
   double hover_x_{0.0};
   double hover_y_{0.0};
   double hover_z_{0.0};
@@ -113,6 +118,12 @@ private:
 
   std::chrono::steady_clock::time_point mission_start_time_;
   std::chrono::steady_clock::time_point forward_stage_start_time_;
+
+  double quaternion_to_yaw(const geometry_msgs::msg::Quaternion &q) const {
+    const double siny_cosp = 2.0 * (q.w * q.z + q.x * q.y);
+    const double cosy_cosp = 1.0 - 2.0 * (q.y * q.y + q.z * q.z);
+    return std::atan2(siny_cosp, cosy_cosp);
+  }
 
   void init_csv() {
     const std::string folder_name = "mines_detected";
@@ -146,6 +157,17 @@ private:
   void pose_callback(const geometry_msgs::msg::PoseStamped::SharedPtr msg) {
     current_pose_ = *msg;
     has_pose_ = true;
+
+    if (!start_pose_captured_) {
+      start_x_ = msg->pose.position.x;
+      start_y_ = msg->pose.position.y;
+      start_yaw_ = quaternion_to_yaw(msg->pose.orientation);
+      start_pose_captured_ = true;
+
+      RCLCPP_INFO(get_logger(),
+                  "Captured start pose: x=%.2f y=%.2f yaw=%.2f rad",
+                  start_x_, start_y_, start_yaw_);
+    }
 
     const auto elapsed =
         std::chrono::duration<double>(std::chrono::steady_clock::now() -
@@ -289,16 +311,16 @@ private:
       hover_y_ = current_pose_.pose.position.y;
       hover_z_ = current_pose_.pose.position.z;
 
-      target_x_ = hover_x_ + forward_distance_;
-      target_y_ = hover_y_;
+      target_x_ = start_x_ + forward_distance_ * std::cos(start_yaw_);
+      target_y_ = start_y_ + forward_distance_ * std::sin(start_yaw_);
       target_z_ = takeoff_altitude_;
       forward_stage_start_time_ = std::chrono::steady_clock::now();
       stage_ = FlightStage::FORWARD;
 
       RCLCPP_INFO(get_logger(),
-                  "TAKEOFF: reached altitude. Moving forward to x=%.2f y=%.2f "
-                  "z=%.2f",
-                  target_x_, target_y_, target_z_);
+                  "TAKEOFF: reached altitude. Moving %.2f m forward from "
+                  "startup pose to x=%.2f y=%.2f z=%.2f",
+                  forward_distance_, target_x_, target_y_, target_z_);
     }
   }
 
