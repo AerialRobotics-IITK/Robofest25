@@ -21,7 +21,7 @@ endif
 FLAGS := $(FLAGS) $(NVIDIA_FLAGS)
 WIFI_DEV ?=wlx3460f9ff4a4b
 SSID ?=shadow
-IMAGE ?=swarm
+IMAGE ?=ghcr.io/aerialrobotics-iitk/swarm:master
 CONT_NAME ?=swarm_cont
 REPLACE ?=0
 CMD ?=tmux
@@ -48,27 +48,30 @@ pi-setup:
 	sudo systemctl enable --now chrony
 
 image:
-	$(RUNTIME) build -t $(IMAGE) .
+	$(RUNTIME) build -t swarm .
+
+pull:
+	$(RUNTIME) pull ghcr.io/aerialrobotics-iitk/swarm:master
 
 usb:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	CMD=tmux IMAGE=$(IMAGE) DEVICE=/dev/ttyACM0 RUNTIME=$(RUNTIME) REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
 			FCU_URL=serial:///dev/ttyACM0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 gpio:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	CMD=tmux IMAGE=$(IMAGE) DEVICE=/dev/ttyAMA0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
 	FCU_URL=serial:///dev/ttyAMA0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 gpio4:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	CMD=tmux IMAGE=$(IMAGE) DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
 	FCU_URL=serial:///dev/ttyS0:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 ama2:
-	CMD=tmux IMAGE=swarm DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	CMD=tmux IMAGE=$(IMAGE) DEVICE=/dev/ttyS0 RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
 	FCU_URL=serial:///dev/AMA2:$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 
 custom:
-	CMD=tmux IMAGE=swarm DEVICE=$(DEVICE) RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
+	CMD=tmux IMAGE=$(IMAGE) DEVICE=$(DEVICE) RUNTIME=$(RUNTIME)  REPLACE=$(REPLACE) CONT_NAME=$(CONT_NAME) \
 	FCU_URL=serial://$(DEVICE):$(BAUD) MAV_ID=$(MAV_ID) ./pod.sh
 
 local:
