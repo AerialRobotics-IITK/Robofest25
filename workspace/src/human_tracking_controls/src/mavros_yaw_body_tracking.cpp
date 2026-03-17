@@ -75,7 +75,7 @@ private:
     static constexpr float WAIST_THRESHOLD_ENTER = 50.0f;
     static constexpr float WAIST_THRESHOLD_EXIT  = 20.0f;
 
-    static constexpr double MAX_YAW_RATE = 0.5;   // rad/s
+    static constexpr double MAX_YAW_RATE = 1.0;   // rad/s
     static constexpr double VISION_TIMEOUT = 0.5; // sat TAKEOFF_ALTITUDE = 1.0f;
     
     // ============================================================
@@ -246,7 +246,6 @@ private:
             get_logger(), *get_clock(), 500,
             "Waist: waist_error=%.1f (vision alive)", waist_error_);
     }
-
 
     // ============================================================
     // ===================== CONTROL ==============================
@@ -421,7 +420,7 @@ private:
 
         double dt = compute_dt();
 
-        yaw_rate_cmd_ = (pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
+        yaw_rate_cmd_ = -(pid_yaw_.update(waist_error_, dt)/100.0) * MAX_YAW_RATE;
 
         RCLCPP_INFO_THROTTLE(
             get_logger(), *get_clock(), 200,

@@ -1,19 +1,21 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>mine_detector</name>
+  <name>px4_minco_trajectory_planner_ros2_package</name>
   <version>0.0.0</version>
-  <description>Mine Detector</description>
-  <maintainer email="atharvm25@iitk.ac.in">atharv</maintainer>
-  <license>TODO: License declaration</license>
+  <description>TODO: Package description</description>
+  <maintainer email="rishabh@todo.todo">rishabh</maintainer>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>geometry_msgs</depend>
   <depend>rclcpp</depend>
-  <depend>mavros_msgs</depend>
-  <depend>std_msgs</depend>
-  <depend>libiio</depend>
+  <depend>sensor_msgs</depend>
+  <depend>nav_msgs</depend>
+  <depend>ompl</depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
