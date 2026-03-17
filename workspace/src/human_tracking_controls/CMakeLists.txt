@@ -28,24 +28,16 @@ endif()
 add_executable(mavros_yaw_body_tracking
   src/mavros_yaw_body_tracking.cpp
 )
-add_executable(mavros_hand_guesture_controls_soumya src/mavros_hand_guesture_controls_soumya.cpp)
-add_executable(mavros_hand_guesture_controls_rishabh src/mavros_hand_guesture_controls_rishabh.cpp)
-
 ament_target_dependencies(mavros_yaw_body_tracking
   rclcpp
   std_msgs
   mavros_msgs
 )
 
-ament_target_dependencies(mavros_hand_guesture_controls_soumya rclcpp std_msgs mavros_msgs)
-ament_target_dependencies(mavros_hand_guesture_controls_rishabh rclcpp std_msgs mavros_msgs)
-
 # Install the executables so `ros2 run` can find them
 install(TARGETS
 
   mavros_yaw_body_tracking
-  mavros_hand_guesture_controls_soumya
-  mavros_hand_guesture_controls_rishabh
   DESTINATION lib/${PROJECT_NAME}
 )
 

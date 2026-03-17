@@ -8,7 +8,7 @@ namespace odom_utils
 {using namespace vehicle_utils;
 
 inline void quaternionToEuler(
-    const Quaternion &q,
+    const vehicle_utils::Quaternion &q,
     Euler &euler)
 {
     double qx = q.x;
