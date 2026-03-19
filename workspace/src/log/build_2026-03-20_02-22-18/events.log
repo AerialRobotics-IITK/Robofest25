@@ -1,0 +1,201 @@
+[0.000000] (-) TimerEvent: {}
+[0.000120] (-) JobUnselected: {'identifier': 'app_broadcast'}
+[0.000136] (-) JobUnselected: {'identifier': 'human_tracking_controls'}
+[0.000147] (-) JobUnselected: {'identifier': 'ldlidar'}
+[0.000156] (-) JobUnselected: {'identifier': 'object_tracker'}
+[0.000163] (-) JobUnselected: {'identifier': 'px4_minco_trajectory_planner_ros2_package'}
+[0.000171] (-) JobUnselected: {'identifier': 'rplidar_ros'}
+[0.000179] (-) JobUnselected: {'identifier': 'swarm'}
+[0.000190] (mine_detector) JobQueued: {'identifier': 'mine_detector', 'dependencies': OrderedDict()}
+[0.000200] (mine_detector) JobStarted: {'identifier': 'mine_detector'}
+[0.006509] (mine_detector) JobProgress: {'identifier': 'mine_detector', 'progress': 'cmake'}
+[0.007037] (mine_detector) Command: {'cmd': ['/usr/bin/cmake', '/home/rishabh/Robofest25/workspace/src/mine_detector', '-DCMAKE_INSTALL_PREFIX=/home/rishabh/Robofest25/workspace/src/install/mine_detector'], 'cwd': '/home/rishabh/Robofest25/workspace/src/build/mine_detector', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'rishabh'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/rishabh'), ('OLDPWD', '/home/rishabh/Robofest25/workspace'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2790'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'rishabh'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'rishabh'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/usr/lib/ccache:/home/rishabh/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/rishabh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/opt/xtensa-esp-elf/bin/'), ('SESSION_MANAGER', 'local/rishabh-HP-Pavilion-Plus-Laptop-16-ab0xxx:@/tmp/.ICE-unix/2745,unix/rishabh-HP-Pavilion-Plus-Laptop-16-ab0xxx:/tmp/.ICE-unix/2745'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/375cdee1_4aad_4c32_8251_4e2e9a7f6892'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/rishabh/Robofest25/workspace/src/build/mine_detector'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099571] (-) TimerEvent: {}
+[0.153575] (mine_detector) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.199717] (-) TimerEvent: {}
+[0.260212] (mine_detector) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.270840] (mine_detector) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.299829] (-) TimerEvent: {}
+[0.339344] (mine_detector) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.347805] (mine_detector) StdoutLine: {'line': b'-- Check for working C compiler: /usr/lib/ccache/cc - skipped\n'}
+[0.348358] (mine_detector) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.349203] (mine_detector) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.353596] (mine_detector) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.399962] (-) TimerEvent: {}
+[0.427860] (mine_detector) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.432874] (mine_detector) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/lib/ccache/c++ - skipped\n'}
+[0.433016] (mine_detector) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.433341] (mine_detector) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.436986] (mine_detector) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.500082] (-) TimerEvent: {}
+[0.600323] (-) TimerEvent: {}
+[0.694661] (mine_detector) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[0.700398] (-) TimerEvent: {}
+[0.768756] (mine_detector) StdoutLine: {'line': b'-- Found rclcpp: 16.0.17 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.800466] (-) TimerEvent: {}
+[0.812718] (mine_detector) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.816097] (mine_detector) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.822097] (mine_detector) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.831209] (mine_detector) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.842651] (mine_detector) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.872217] (mine_detector) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.873905] (mine_detector) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.900543] (-) TimerEvent: {}
+[0.962106] (mine_detector) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[0.994634] (mine_detector) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[1.000649] (-) TimerEvent: {}
+[1.038968] (mine_detector) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[1.046393] (mine_detector) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[1.100751] (-) TimerEvent: {}
+[1.153410] (mine_detector) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[1.154184] (mine_detector) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[1.200894] (-) TimerEvent: {}
+[1.265617] (mine_detector) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[1.267334] (mine_detector) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[1.300997] (-) TimerEvent: {}
+[1.308360] (mine_detector) StdoutLine: {'line': b'-- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)\n'}
+[1.401133] (-) TimerEvent: {}
+[1.501436] (-) TimerEvent: {}
+[1.601739] (-) TimerEvent: {}
+[1.638436] (mine_detector) StdoutLine: {'line': b'-- Found OpenMP_C: -fopenmp (found version "4.5") \n'}
+[1.701874] (-) TimerEvent: {}
+[1.754072] (mine_detector) StdoutLine: {'line': b'-- Found OpenMP_CXX: -fopenmp (found version "4.5") \n'}
+[1.754203] (mine_detector) StdoutLine: {'line': b'-- Found OpenMP: TRUE (found version "4.5")  \n'}
+[1.755404] (mine_detector) StdoutLine: {'line': b'-- mine_detector (VNA node) will NOT be built - libiio dependency missing\n'}
+[1.755555] (mine_detector) StderrLine: {'line': b'\x1b[33mCMake Warning at CMakeLists.txt:36 (message):\n'}
+[1.755604] (mine_detector) StderrLine: {'line': b'  libiio not found! mine_detector will not be built.  Install with: sudo apt\n'}
+[1.755635] (mine_detector) StderrLine: {'line': b'  install libiio-dev\n'}
+[1.755663] (mine_detector) StderrLine: {'line': b'\n'}
+[1.755690] (mine_detector) StderrLine: {'line': b'\x1b[0m\n'}
+[1.801921] (-) TimerEvent: {}
+[1.819894] (mine_detector) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.825357] (mine_detector) StdoutLine: {'line': b'-- Generating done\n'}
+[1.827652] (mine_detector) StdoutLine: {'line': b'-- Build files have been written to: /home/rishabh/Robofest25/workspace/src/build/mine_detector\n'}
+[1.834121] (mine_detector) CommandEnded: {'returncode': 0}
+[1.834705] (mine_detector) JobProgress: {'identifier': 'mine_detector', 'progress': 'build'}
+[1.835737] (mine_detector) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/rishabh/Robofest25/workspace/src/build/mine_detector', '--', '-j20', '-l20'], 'cwd': '/home/rishabh/Robofest25/workspace/src/build/mine_detector', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'rishabh'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/rishabh'), ('OLDPWD', '/home/rishabh/Robofest25/workspace'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2790'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'rishabh'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'rishabh'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/usr/lib/ccache:/home/rishabh/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/rishabh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/opt/xtensa-esp-elf/bin/'), ('SESSION_MANAGER', 'local/rishabh-HP-Pavilion-Plus-Laptop-16-ab0xxx:@/tmp/.ICE-unix/2745,unix/rishabh-HP-Pavilion-Plus-Laptop-16-ab0xxx:/tmp/.ICE-unix/2745'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/375cdee1_4aad_4c32_8251_4e2e9a7f6892'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/rishabh/Robofest25/workspace/src/build/mine_detector'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[1.892786] (mine_detector) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/mine_recorder.dir/src/mine_recorder.cpp.o\x1b[0m\n'}
+[1.902029] (-) TimerEvent: {}
+[2.002290] (-) TimerEvent: {}
+[2.102552] (-) TimerEvent: {}
+[2.202809] (-) TimerEvent: {}
+[2.303077] (-) TimerEvent: {}
+[2.403346] (-) TimerEvent: {}
+[2.503611] (-) TimerEvent: {}
+[2.603900] (-) TimerEvent: {}
+[2.704203] (-) TimerEvent: {}
+[2.804516] (-) TimerEvent: {}
+[2.904829] (-) TimerEvent: {}
+[3.005142] (-) TimerEvent: {}
+[3.105440] (-) TimerEvent: {}
+[3.205716] (-) TimerEvent: {}
+[3.305983] (-) TimerEvent: {}
+[3.406287] (-) TimerEvent: {}
+[3.506608] (-) TimerEvent: {}
+[3.606862] (-) TimerEvent: {}
+[3.707192] (-) TimerEvent: {}
+[3.807508] (-) TimerEvent: {}
+[3.907793] (-) TimerEvent: {}
+[4.008089] (-) TimerEvent: {}
+[4.108404] (-) TimerEvent: {}
+[4.208757] (-) TimerEvent: {}
+[4.309056] (-) TimerEvent: {}
+[4.409344] (-) TimerEvent: {}
+[4.509625] (-) TimerEvent: {}
+[4.609899] (-) TimerEvent: {}
+[4.710163] (-) TimerEvent: {}
+[4.810553] (-) TimerEvent: {}
+[4.910833] (-) TimerEvent: {}
+[5.011154] (-) TimerEvent: {}
+[5.111404] (-) TimerEvent: {}
+[5.211685] (-) TimerEvent: {}
+[5.311964] (-) TimerEvent: {}
+[5.412235] (-) TimerEvent: {}
+[5.512482] (-) TimerEvent: {}
+[5.612748] (-) TimerEvent: {}
+[5.713023] (-) TimerEvent: {}
+[5.813295] (-) TimerEvent: {}
+[5.913576] (-) TimerEvent: {}
+[6.013870] (-) TimerEvent: {}
+[6.114171] (-) TimerEvent: {}
+[6.214522] (-) TimerEvent: {}
+[6.314863] (-) TimerEvent: {}
+[6.415149] (-) TimerEvent: {}
+[6.515410] (-) TimerEvent: {}
+[6.615720] (-) TimerEvent: {}
+[6.715991] (-) TimerEvent: {}
+[6.816337] (-) TimerEvent: {}
+[6.916609] (-) TimerEvent: {}
+[7.016906] (-) TimerEvent: {}
+[7.117153] (-) TimerEvent: {}
+[7.217417] (-) TimerEvent: {}
+[7.317683] (-) TimerEvent: {}
+[7.417948] (-) TimerEvent: {}
+[7.518222] (-) TimerEvent: {}
+[7.618492] (-) TimerEvent: {}
+[7.718721] (-) TimerEvent: {}
+[7.818995] (-) TimerEvent: {}
+[7.919271] (-) TimerEvent: {}
+[8.019511] (-) TimerEvent: {}
+[8.119771] (-) TimerEvent: {}
+[8.220011] (-) TimerEvent: {}
+[8.320235] (-) TimerEvent: {}
+[8.420533] (-) TimerEvent: {}
+[8.520826] (-) TimerEvent: {}
+[8.621047] (-) TimerEvent: {}
+[8.721367] (-) TimerEvent: {}
+[8.821613] (-) TimerEvent: {}
+[8.921906] (-) TimerEvent: {}
+[9.022311] (-) TimerEvent: {}
+[9.122585] (-) TimerEvent: {}
+[9.222843] (-) TimerEvent: {}
+[9.323122] (-) TimerEvent: {}
+[9.423465] (-) TimerEvent: {}
+[9.523707] (-) TimerEvent: {}
+[9.623947] (-) TimerEvent: {}
+[9.724268] (-) TimerEvent: {}
+[9.824549] (-) TimerEvent: {}
+[9.924795] (-) TimerEvent: {}
+[10.025106] (-) TimerEvent: {}
+[10.125356] (-) TimerEvent: {}
+[10.225631] (-) TimerEvent: {}
+[10.325893] (-) TimerEvent: {}
+[10.426226] (-) TimerEvent: {}
+[10.526510] (-) TimerEvent: {}
+[10.626830] (-) TimerEvent: {}
+[10.727069] (-) TimerEvent: {}
+[10.827419] (-) TimerEvent: {}
+[10.927740] (-) TimerEvent: {}
+[11.028029] (-) TimerEvent: {}
+[11.128384] (-) TimerEvent: {}
+[11.204530] (mine_detector) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable mine_recorder\x1b[0m\n'}
+[11.228536] (-) TimerEvent: {}
+[11.328878] (-) TimerEvent: {}
+[11.429329] (-) TimerEvent: {}
+[11.529736] (-) TimerEvent: {}
+[11.630085] (-) TimerEvent: {}
+[11.671087] (mine_detector) StdoutLine: {'line': b'[100%] Built target mine_recorder\n'}
+[11.682977] (mine_detector) CommandEnded: {'returncode': 0}
+[11.683472] (mine_detector) JobProgress: {'identifier': 'mine_detector', 'progress': 'install'}
+[11.696535] (mine_detector) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/rishabh/Robofest25/workspace/src/build/mine_detector'], 'cwd': '/home/rishabh/Robofest25/workspace/src/build/mine_detector', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_IN:en'), ('USER', 'rishabh'), ('XDG_SESSION_TYPE', 'x11'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/home/rishabh'), ('OLDPWD', '/home/rishabh/Robofest25/workspace'), ('DESKTOP_SESSION', 'ubuntu'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('SYSTEMD_EXEC_PID', '2790'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('ROS_DISTRO', 'humble'), ('GTK_IM_MODULE', 'ibus'), ('LOGNAME', 'rishabh'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'rishabh'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/opt/ros/humble/bin:/usr/lib/ccache:/home/rishabh/ardupilot/Tools/autotest:/opt/gcc-arm-none-eabi-10-2020-q4-major/bin:/home/rishabh/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/opt/xtensa-esp-elf/bin/'), ('SESSION_MANAGER', 'local/rishabh-HP-Pavilion-Plus-Laptop-16-ab0xxx:@/tmp/.ICE-unix/2745,unix/rishabh-HP-Pavilion-Plus-Laptop-16-ab0xxx:/tmp/.ICE-unix/2745'), ('XDG_MENU_PREFIX', 'gnome-'), ('GNOME_TERMINAL_SCREEN', '/org/gnome/Terminal/screen/375cdee1_4aad_4c32_8251_4e2e9a7f6892'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('DISPLAY', ':1'), ('LANG', 'en_US.UTF-8'), ('XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('GNOME_TERMINAL_SERVICE', ':1.116'), ('SSH_AGENT_LAUNCHER', 'gnome-keyring'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/rishabh/Robofest25/workspace/src/build/mine_detector'), ('LC_ALL', 'en_US.UTF-8'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('VTE_VERSION', '6800'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[11.705292] (mine_detector) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[11.705446] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/mine_detector/mine_recorder\n'}
+[11.711541] (mine_detector) StdoutLine: {'line': b'-- Set runtime path of "/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/mine_detector/mine_recorder" to ""\n'}
+[11.711671] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/ament_index/resource_index/package_run_dependencies/mine_detector\n'}
+[11.711798] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/ament_index/resource_index/parent_prefix_path/mine_detector\n'}
+[11.711955] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/ament_prefix_path.sh\n'}
+[11.712033] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/ament_prefix_path.dsv\n'}
+[11.712082] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/path.sh\n'}
+[11.712129] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/path.dsv\n'}
+[11.712194] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.bash\n'}
+[11.712270] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.sh\n'}
+[11.712332] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.zsh\n'}
+[11.712383] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.dsv\n'}
+[11.712448] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.dsv\n'}
+[11.712509] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/ament_index/resource_index/packages/mine_detector\n'}
+[11.712579] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/cmake/mine_detectorConfig.cmake\n'}
+[11.712636] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/cmake/mine_detectorConfig-version.cmake\n'}
+[11.712705] (mine_detector) StdoutLine: {'line': b'-- Installing: /home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.xml\n'}
+[11.714199] (mine_detector) CommandEnded: {'returncode': 0}
+[11.728372] (mine_detector) JobEnded: {'identifier': 'mine_detector', 'rc': 0}
+[11.728731] (-) EventReactorShutdown: {}

@@ -1,0 +1,5 @@
+[33mCMake Warning at CMakeLists.txt:36 (message):
+  libiio not found! mine_detector will not be built.  Install with: sudo apt
+  install libiio-dev
+
+[0m

@@ -1,0 +1,205 @@
+[0.179s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'mine_detector']
+[0.180s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=20, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['mine_detector'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x75a27dfa09a0>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x75a27dfa0370>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x75a27dfa0370>>, mixin_verb=('build',))
+[0.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.217s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.217s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/rishabh/Robofest25/workspace/src'
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.217s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extensions ['ignore', 'ignore_ament_install']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extension 'ignore'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extension 'ignore_ament_install'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extensions ['colcon_pkg']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extension 'colcon_pkg'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extensions ['colcon_meta']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extension 'colcon_meta'
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extensions ['ros']
+[0.241s] Level 1:colcon.colcon_core.package_identification:_identify(app_broadcast) by extension 'ros'
+[0.243s] DEBUG:colcon.colcon_core.package_identification:Package 'app_broadcast' with type 'ros.ament_python' and name 'app_broadcast'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.243s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extensions ['ignore', 'ignore_ament_install']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extension 'ignore'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extension 'ignore_ament_install'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extensions ['colcon_pkg']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extension 'colcon_pkg'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extensions ['colcon_meta']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extension 'colcon_meta'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extensions ['ros']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(human_tracking_controls) by extension 'ros'
+[0.244s] DEBUG:colcon.colcon_core.package_identification:Package 'human_tracking_controls' with type 'ros.ament_cmake' and name 'human_tracking_controls'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extensions ['ignore', 'ignore_ament_install']
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extension 'ignore'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extension 'ignore_ament_install'
+[0.244s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extensions ['colcon_pkg']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extension 'colcon_pkg'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extensions ['colcon_meta']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extension 'colcon_meta'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extensions ['ros']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(ldlidar) by extension 'ros'
+[0.245s] DEBUG:colcon.colcon_core.package_identification:Package 'ldlidar' with type 'ros.ament_cmake' and name 'ldlidar'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extensions ['ignore', 'ignore_ament_install']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extension 'ignore'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extension 'ignore_ament_install'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extensions ['colcon_pkg']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extension 'colcon_pkg'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extensions ['colcon_meta']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extension 'colcon_meta'
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extensions ['ros']
+[0.245s] Level 1:colcon.colcon_core.package_identification:_identify(mine_detector) by extension 'ros'
+[0.246s] DEBUG:colcon.colcon_core.package_identification:Package 'mine_detector' with type 'ros.ament_cmake' and name 'mine_detector'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extensions ['ignore', 'ignore_ament_install']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extension 'ignore'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extension 'ignore_ament_install'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extensions ['colcon_pkg']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extension 'colcon_pkg'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extensions ['colcon_meta']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extension 'colcon_meta'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extensions ['ros']
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(object_tracker) by extension 'ros'
+[0.246s] DEBUG:colcon.colcon_core.package_identification:Package 'object_tracker' with type 'ros.ament_python' and name 'object_tracker'
+[0.246s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extensions ['ignore', 'ignore_ament_install']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extension 'ignore'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extension 'ignore_ament_install'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extensions ['colcon_pkg']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extension 'colcon_pkg'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extensions ['colcon_meta']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extension 'colcon_meta'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extensions ['ros']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(px4_minco_trajectory_planner_ros2_package) by extension 'ros'
+[0.247s] DEBUG:colcon.colcon_core.package_identification:Package 'px4_minco_trajectory_planner_ros2_package' with type 'ros.ament_cmake' and name 'px4_minco_trajectory_planner_ros2_package'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extensions ['ignore', 'ignore_ament_install']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extension 'ignore'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extension 'ignore_ament_install'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extensions ['colcon_pkg']
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extension 'colcon_pkg'
+[0.247s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extensions ['colcon_meta']
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extension 'colcon_meta'
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extensions ['ros']
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(rplidar_ros) by extension 'ros'
+[0.248s] DEBUG:colcon.colcon_core.package_identification:Package 'rplidar_ros' with type 'ros.ament_cmake' and name 'rplidar_ros'
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extensions ['ignore', 'ignore_ament_install']
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extension 'ignore'
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extension 'ignore_ament_install'
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extensions ['colcon_pkg']
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extension 'colcon_pkg'
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extensions ['colcon_meta']
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extension 'colcon_meta'
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extensions ['ros']
+[0.248s] Level 1:colcon.colcon_core.package_identification:_identify(swarm) by extension 'ros'
+[0.249s] DEBUG:colcon.colcon_core.package_identification:Package 'swarm' with type 'ros.ament_python' and name 'swarm'
+[0.249s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.249s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.249s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.249s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.249s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'app_broadcast' in 'app_broadcast'
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'human_tracking_controls' in 'human_tracking_controls'
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'ldlidar' in 'ldlidar'
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'object_tracker' in 'object_tracker'
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'px4_minco_trajectory_planner_ros2_package' in 'px4_minco_trajectory_planner_ros2_package'
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'rplidar_ros' in 'rplidar_ros'
+[0.267s] INFO:colcon.colcon_core.package_selection:Skipping not selected package 'swarm' in 'swarm'
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.268s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.269s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 293 installed packages in /opt/ros/humble
+[0.270s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'cmake_args' from command line to 'None'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'cmake_target' from command line to 'None'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'cmake_clean_cache' from command line to 'False'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'cmake_clean_first' from command line to 'False'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'cmake_force_configure' from command line to 'False'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'ament_cmake_args' from command line to 'None'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'catkin_cmake_args' from command line to 'None'
+[0.299s] Level 5:colcon.colcon_core.verb:set package 'mine_detector' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.299s] DEBUG:colcon.colcon_core.verb:Building package 'mine_detector' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/rishabh/Robofest25/workspace/src/build/mine_detector', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/rishabh/Robofest25/workspace/src/install/mine_detector', 'merge_install': False, 'path': '/home/rishabh/Robofest25/workspace/src/mine_detector', 'symlink_install': False, 'test_result_base': None}
+[0.299s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.300s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.300s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/rishabh/Robofest25/workspace/src/mine_detector' with build type 'ament_cmake'
+[0.300s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/rishabh/Robofest25/workspace/src/mine_detector'
+[0.302s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.302s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.302s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.308s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/rishabh/Robofest25/workspace/src/build/mine_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/rishabh/Robofest25/workspace/src/mine_detector -DCMAKE_INSTALL_PREFIX=/home/rishabh/Robofest25/workspace/src/install/mine_detector
+[2.134s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/rishabh/Robofest25/workspace/src/build/mine_detector' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/rishabh/Robofest25/workspace/src/mine_detector -DCMAKE_INSTALL_PREFIX=/home/rishabh/Robofest25/workspace/src/install/mine_detector
+[2.136s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/rishabh/Robofest25/workspace/src/build/mine_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/rishabh/Robofest25/workspace/src/build/mine_detector -- -j20 -l20
+[11.983s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/rishabh/Robofest25/workspace/src/build/mine_detector' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/rishabh/Robofest25/workspace/src/build/mine_detector -- -j20 -l20
+[11.997s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/rishabh/Robofest25/workspace/src/build/mine_detector': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/rishabh/Robofest25/workspace/src/build/mine_detector
+[12.014s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mine_detector)
+[12.015s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/rishabh/Robofest25/workspace/src/build/mine_detector' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /home/rishabh/Robofest25/workspace/src/build/mine_detector
+[12.018s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector' for CMake module files
+[12.019s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector' for CMake config files
+[12.019s] Level 1:colcon.colcon_core.shell:create_environment_hook('mine_detector', 'cmake_prefix_path')
+[12.019s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/hook/cmake_prefix_path.ps1'
+[12.020s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/hook/cmake_prefix_path.dsv'
+[12.020s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/hook/cmake_prefix_path.sh'
+[12.021s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib'
+[12.021s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/bin'
+[12.021s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/pkgconfig/mine_detector.pc'
+[12.021s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/python3.10/site-packages'
+[12.022s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/bin'
+[12.022s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.ps1'
+[12.023s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.dsv'
+[12.023s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.sh'
+[12.024s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.bash'
+[12.024s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.zsh'
+[12.025s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/colcon-core/packages/mine_detector)
+[12.025s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(mine_detector)
+[12.025s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector' for CMake module files
+[12.026s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector' for CMake config files
+[12.026s] Level 1:colcon.colcon_core.shell:create_environment_hook('mine_detector', 'cmake_prefix_path')
+[12.026s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/hook/cmake_prefix_path.ps1'
+[12.026s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/hook/cmake_prefix_path.dsv'
+[12.026s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/hook/cmake_prefix_path.sh'
+[12.027s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib'
+[12.027s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/bin'
+[12.027s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/pkgconfig/mine_detector.pc'
+[12.027s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/python3.10/site-packages'
+[12.027s] Level 1:colcon.colcon_core.environment:checking '/home/rishabh/Robofest25/workspace/src/install/mine_detector/bin'
+[12.027s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.ps1'
+[12.028s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.dsv'
+[12.028s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.sh'
+[12.028s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.bash'
+[12.028s] INFO:colcon.colcon_core.shell:Creating package script '/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.zsh'
+[12.028s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/colcon-core/packages/mine_detector)
+[12.028s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[12.029s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[12.029s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[12.029s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[12.032s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[12.032s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[12.032s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[12.049s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[12.050s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rishabh/Robofest25/workspace/src/install/local_setup.ps1'
+[12.051s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/rishabh/Robofest25/workspace/src/install/_local_setup_util_ps1.py'
+[12.053s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rishabh/Robofest25/workspace/src/install/setup.ps1'
+[12.054s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rishabh/Robofest25/workspace/src/install/local_setup.sh'
+[12.055s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/rishabh/Robofest25/workspace/src/install/_local_setup_util_sh.py'
+[12.055s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rishabh/Robofest25/workspace/src/install/setup.sh'
+[12.056s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rishabh/Robofest25/workspace/src/install/local_setup.bash'
+[12.057s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rishabh/Robofest25/workspace/src/install/setup.bash'
+[12.057s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/rishabh/Robofest25/workspace/src/install/local_setup.zsh'
+[12.058s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/rishabh/Robofest25/workspace/src/install/setup.zsh'

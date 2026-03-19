@@ -19,6 +19,7 @@
 #include <ctime>
 #include <algorithm>
 
+
 namespace fs = std::filesystem;
 typedef std::complex<float> cf32;
 
@@ -58,8 +59,28 @@ public:
         RCLCPP_INFO(this->get_logger(), "[Init] Precomputed %zu oscillator states.", num_s_);
 
         // ─── Publisher ───
+
         // Publishes: timestamp (seconds) if mine detected, -1.0 if not
-        pub_ = this->create_publisher<std_msgs::msg::Float64>("timestamp_pipeline", 10);
+        pub_ = this->create_publisher<std_msgs::msg::Float64>("/timestamp_pipeline", 10);
+
+        start_time_pub_ = this->create_publisher<std_msgs::msg::Float64>("/detector_start_time", 10);
+
+        // 2. Capture the absolute ROS time RIGHT NOW
+        // Note: If using simulation, this will correctly wait for sim_time
+        mission_start_time_ = this->now().seconds();
+        
+        RCLCPP_INFO(this->get_logger(), "Node Started. Mission Start Time captured: %.2f", mission_start_time_);
+
+        // 3. Create a low-frequency timer (1Hz) to broadcast this start time.
+        // This ensures that even if the second node starts 5 seconds later, it will still get the sync.
+        sync_timer_ = this->create_wall_timer(
+            std::chrono::seconds(1), 
+            [this]() {
+                auto msg = std_msgs::msg::Float64();
+                msg.data = this->mission_start_time_;
+                this->start_time_pub_->publish(msg);
+            }
+        );
 
         // ─── Start Threads ───
         keep_running_ = true;
@@ -107,6 +128,11 @@ private:
     std::thread proc_thread_;
 
     rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub_;
+
+    // ... your other members ...
+    rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr start_time_pub_;
+    rclcpp::TimerBase::SharedPtr sync_timer_;
+    double mission_start_time_;
 
     // ───────────── Helpers ─────────────
 
@@ -244,7 +270,7 @@ private:
                 rx_step);
         }
 
-        auto start_time = std::chrono::steady_clock::now();
+
         RCLCPP_INFO(this->get_logger(), "[Acq] Hardware ready. Starting capture.");
 
         while (keep_running_ && rclcpp::ok()) {
@@ -254,9 +280,10 @@ private:
             }
 
             SdrData data;
-            data.timestamp = std::chrono::duration<double>(
-                std::chrono::steady_clock::now() - start_time).count();
-            data.rx_complex.resize(num_s_);
+            // USE THIS INSTEAD:
+                data.timestamp = this->now().seconds() - mission_start_time_; 
+                
+                data.rx_complex.resize(num_s_);
 
             char *b0 = (char *)iio_buffer_first(rxbuf, rx_i);
             for (int i = 0; i < (int)num_s_; ++i) {

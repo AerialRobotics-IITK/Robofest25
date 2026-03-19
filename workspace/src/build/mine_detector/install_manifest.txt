@@ -1,0 +1,16 @@
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/lib/mine_detector/mine_recorder
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/ament_index/resource_index/package_run_dependencies/mine_detector
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/ament_index/resource_index/parent_prefix_path/mine_detector
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/ament_prefix_path.sh
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/ament_prefix_path.dsv
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/path.sh
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/environment/path.dsv
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.bash
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.sh
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.zsh
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/local_setup.dsv
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.dsv
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/ament_index/resource_index/packages/mine_detector
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/cmake/mine_detectorConfig.cmake
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/cmake/mine_detectorConfig-version.cmake
+/home/rishabh/Robofest25/workspace/src/install/mine_detector/share/mine_detector/package.xml
