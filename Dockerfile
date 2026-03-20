@@ -17,6 +17,20 @@ run apt-get update && apt-get install -y ros-${ROS_DISTRO}-rmw-zenoh-cpp
 run apt-get update && apt-get install -y python3-pip ros-${ROS_DISTRO}-camera-ros \
                       python3-serial python3-pyproj
 
+run apt-get update && apt-get install -y \
+    libgpiod-dev \
+    libgpiodcxx-dev \
+    libeigen-dev \
+    libomp-dev \
+    libxcb-cursor0 \
+    libxkbcommon-x11-0 \
+    libserialport-dev \
+    python3-matplotlib \
+    python3-numpy \
+    && rm -rf /var/lib/apt/lists/*
+    
+# Note: Removed 'pip install matplotlib' because 'python3-matplotlib' is faster on Pi
+
 # Requires python3.10
 run pip install mediapipe==0.10.9 scipy opencv-python
 
