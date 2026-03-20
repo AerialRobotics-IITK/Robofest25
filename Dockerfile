@@ -14,7 +14,11 @@ RUN apt-get update && apt-get install -y \
     # Hardware Libs (SDR & GPIO)
     libusb-1.0-0-dev libavahi-client-dev libavahi-common-dev libaio-dev \
     libgpiod-dev libeigen3-dev libomp-dev libserialport-dev \
+    
+    Error: Unable to locate package libgpiodcxx-dev
+
     # ROS 2 Core Dependencies (Using absolute name 'humble' for stability)
+
     ros-humble-mavros-extras \
     ros-humble-rmw-zenoh-cpp \
     ros-humble-camera-ros \
