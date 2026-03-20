@@ -5,6 +5,7 @@ ARG ROS_DISTRO=humble
 ENV ROS_DISTRO=humble
 ENV DEBIAN_FRONTEND=noninteractive
 
+
 # 2. Optimized and Corrected APT Installs
 RUN apt-get update && apt-get install -y \
     # Build Tools
@@ -14,11 +15,7 @@ RUN apt-get update && apt-get install -y \
     # Hardware Libs (SDR & GPIO)
     libusb-1.0-0-dev libavahi-client-dev libavahi-common-dev libaio-dev \
     libgpiod-dev libeigen3-dev libomp-dev libserialport-dev \
-    
-    Error: Unable to locate package libgpiodcxx-dev
-
     # ROS 2 Core Dependencies (Using absolute name 'humble' for stability)
-
     ros-humble-mavros-extras \
     ros-humble-rmw-zenoh-cpp \
     ros-humble-camera-ros \
@@ -28,9 +25,10 @@ RUN apt-get update && apt-get install -y \
     # Solver & GUI Dependencies (Fixed for Ubuntu 22.04)
     python3-matplotlib python3-numpy python3-scipy python3-opencv \
     libxkbcommon-x11-0 \
-    libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
+    libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libgpiod-dev \
     && rm -rf /var/lib/apt/lists/*
 
+    
 # 3. MAVROS Datasets
 RUN wget https://raw.githubusercontent.com/mavlink/mavros/ros2/mavros/scripts/install_geographiclib_datasets.sh && \
     chmod +x install_geographiclib_datasets.sh && ./install_geographiclib_datasets.sh && \
