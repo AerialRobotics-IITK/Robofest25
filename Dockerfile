@@ -1,71 +1,77 @@
-from docker.io/ros:humble
+FROM docker.io/ros:humble
 
-env DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS_DISTRO=humble
 
-# All apt-get installs
-run apt-get update && apt-get install -y tmux ripgrep neovim fd-find wget ros-${ROS_DISTRO}-mavros-extras ros-${ROS_DISTRO}-rmw-zenoh-cpp ros-${ROS_DISTRO}-camera-ros \
-    python3-serial python3-pyproj libgeographic-dev pkg-config build-essential git libxml2-dev bison flex libcdk5-dev cmake python3-pip libusb-1.0-0-dev \
-    libavahi-client-dev libavahi-common-dev libaio-dev python3-setuptools
-
-# Basic Utils and MAVROS
-run wget https://raw.githubusercontent.com/mavlink/mavros/ros2/mavros/scripts/install_geographiclib_datasets.sh
-run chmod +x install_geographiclib_datasets.sh && ./install_geographiclib_datasets.sh
-
-# Zenoh Stuff
-run apt-get update && apt-get install -y ros-${ROS_DISTRO}-rmw-zenoh-cpp
-# Package stuff
-run apt-get update && apt-get install -y python3-pip ros-${ROS_DISTRO}-camera-ros \
-                      python3-serial python3-pyproj
-
-# --- Dependencies for mine_detector package (Ubuntu 22.04 / Humble) ---
-run apt-get update && apt-get install -y \
-    libgpiod-dev \
-    libeigen3-dev \
-    libomp-dev \
-    libxkbcommon-x11-0 \
-    libserialport-dev \
-    python3-matplotlib \
-    python3-numpy \
+# 1. Consolidate all APT installs into ONE layer to avoid bloat and ensure dependencies
+RUN apt-get update && apt-get install -y \
+    # Build Tools
+    cmake pkg-config build-essential git wget tmux ripgrep neovim fd-find bison flex libxml2-dev \
+    # Python & Utils
+    python3-pip python3-setuptools python3-serial python3-pyproj \
+    # Hardware Libs (SDR & GPIO)
+    libusb-1.0-0-dev libavahi-client-dev libavahi-common-dev libaio-dev \
+    libgpiod-dev libeigen3-dev libomp-dev libserialport-dev \
+    # ROS 2 Core Dependencies (Explicitly include messages)
+    ros-${ROS_DISTRO}-mavros-extras \
+    ros-${ROS_DISTRO}-rmw-zenoh-cpp \
+    ros-${ROS_DISTRO}-camera-ros \
+    ros-${ROS_DISTRO}-std-msgs \
+    ros-${ROS_DISTRO}-geometry_msgs \
+    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
+    # Solver Dependencies (Matplotlib/Qt fix)
+    python3-matplotlib python3-numpy python3-scipy python3-opencv \
+    libxcb-util1 libxkbcommon-x11-0 \
     && rm -rf /var/lib/apt/lists/*
-# Note: Removed 'pip install matplotlib' because 'python3-matplotlib' is faster on Pi
 
-# Requires python3.10
-run pip install mediapipe==0.10.9 scipy opencv-python
+# 2. MAVROS Datasets
+RUN wget https://raw.githubusercontent.com/mavlink/mavros/ros2/mavros/scripts/install_geographiclib_datasets.sh && \
+    chmod +x install_geographiclib_datasets.sh && ./install_geographiclib_datasets.sh
 
-#installing sdr libraries
-workdir /opt/sdr
-run git clone --branch v0.23 https://github.com/analogdevicesinc/libiio.git && \
-    cd libiio && \
-    mkdir build && cd build && \
-    cmake -DPYTHON_BINDINGS=ON .. && \
-    make -j$(nproc) && \
-    make install && \
-    ldconfig
-run git clone https://github.com/analogdevicesinc/libad9361-iio.git && \
-    cd libad9361-iio && \
-    mkdir build && cd build && \
-    cmake .. && \
-    make -j$(nproc) && \
-    make install && \
-    ldconfig
-run git clone --branch v0.0.14 https://github.com/analogdevicesinc/pyadi-iio.git && \
-    cd pyadi-iio && \
-    pip3 install -r requirements.txt && \
-    python3 setup.py install
+# 3. Pip Installs
+RUN pip install mediapipe==0.10.9
 
-# copy workspace/ /workspace/
-workdir /workspace
-run --mount=type=bind,source=./workspace/src,target=/workspace/src \
-      . /opt/ros/${ROS_DISTRO}/setup.sh && colcon build --symlink-install
+# 4. SDR Libraries (Build with limited cores -j2 to prevent QEMU crash)
+WORKDIR /opt/sdr
+RUN git clone --branch v0.23 https://github.com/analogdevicesinc/libiio.git && \
+    cd libiio && mkdir build && cd build && \
+    cmake -DPYTHON_BINDINGS=ON .. && make -j2 && make install && ldconfig
 
-# Final config modifications
-env RMW_IMPLEMENTATION=rmw_zenoh_cpp
-env ZENOH_ROUTER_CONFIG_URI=/root/router_config.json5
-copy zenoh/ /root/
+RUN git clone https://github.com/analogdevicesinc/libad9361-iio.git && \
+    cd libad9361-iio && mkdir build && cd build && \
+    cmake .. && make -j2 && make install && ldconfig
 
+RUN git clone --branch v0.0.14 https://github.com/analogdevicesinc/pyadi-iio.git && \
+    cd pyadi-iio && pip3 install -r requirements.txt && python3 setup.py install
 
-copy Tools /Tools
-run chmod +x /Tools/update_router_config.py
-run chmod +x /Tools/entrypoint.sh
-entrypoint [ "/Tools/entrypoint.sh" ]
-cmd [ "tmux" ]
+# 5. Workspace Build
+WORKDIR /workspace
+# Using COPY instead of bind-mount for better stability in ARM emulation
+COPY ./workspace/src /workspace/src
+
+# GENTLE COLCON BUILD:
+# --executor sequential: Prevents OOM/Abort crashes by building 1 package at a time
+# --parallel-workers 2: Limits CPU threads
+RUN . /opt/ros/${ROS_DISTRO}/setup.sh && \
+    colcon build \
+    --symlink-install \
+    --executor sequential \
+    --parallel-workers 2 \
+    --event-handlers console_direct+
+
+# 6. Final Config
+ENV RMW_IMPLEMENTATION=rmw_zenoh_cpp
+ENV ZENOH_ROUTER_CONFIG_URI=/root/router_config.json5
+
+COPY zenoh/ /root/
+COPY Tools /Tools
+
+RUN chmod +x /Tools/update_router_config.py && \
+    chmod +x /Tools/entrypoint.sh
+
+# Automatically source ROS and Workspace in every bash session
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" >> ~/.bashrc && \
+    echo "source /workspace/install/setup.bash" >> ~/.bashrc
+
+ENTRYPOINT [ "/Tools/entrypoint.sh" ]
+CMD [ "tmux" ]
