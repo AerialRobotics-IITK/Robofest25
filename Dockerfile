@@ -1,9 +1,11 @@
 FROM docker.io/ros:humble
 
-ENV DEBIAN_FRONTEND=noninteractive
+# 1. Define ARG for build-time expansion, ENV for runtime
+ARG ROS_DISTRO=humble
 ENV ROS_DISTRO=humble
+ENV DEBIAN_FRONTEND=noninteractive
 
-# 1. Consolidate all APT installs into ONE layer to avoid bloat and ensure dependencies
+# 2. Optimized and Corrected APT Installs
 RUN apt-get update && apt-get install -y \
     # Build Tools
     cmake pkg-config build-essential git wget tmux ripgrep neovim fd-find bison flex libxml2-dev \
@@ -12,21 +14,23 @@ RUN apt-get update && apt-get install -y \
     # Hardware Libs (SDR & GPIO)
     libusb-1.0-0-dev libavahi-client-dev libavahi-common-dev libaio-dev \
     libgpiod-dev libeigen3-dev libomp-dev libserialport-dev \
-    # ROS 2 Core Dependencies (Explicitly include messages)
-    ros-${ROS_DISTRO}-mavros-extras \
-    ros-${ROS_DISTRO}-rmw-zenoh-cpp \
-    ros-${ROS_DISTRO}-camera-ros \
-    ros-${ROS_DISTRO}-std-msgs \
-    ros-${ROS_DISTRO}-geometry_msgs \
-    ros-${ROS_DISTRO}-rmw-cyclonedds-cpp \
-    # Solver Dependencies (Matplotlib/Qt fix)
+    # ROS 2 Core Dependencies (Using absolute name 'humble' for stability)
+    ros-humble-mavros-extras \
+    ros-humble-rmw-zenoh-cpp \
+    ros-humble-camera-ros \
+    ros-humble-std-msgs \
+    ros-humble-geometry-msgs \
+    ros-humble-rmw-cyclonedds-cpp \
+    # Solver & GUI Dependencies (Fixed for Ubuntu 22.04)
     python3-matplotlib python3-numpy python3-scipy python3-opencv \
-    libxcb-util1 libxkbcommon-x11-0 \
+    libxkbcommon-x11-0 \
+    libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 \
     && rm -rf /var/lib/apt/lists/*
 
-# 2. MAVROS Datasets
+# 3. MAVROS Datasets
 RUN wget https://raw.githubusercontent.com/mavlink/mavros/ros2/mavros/scripts/install_geographiclib_datasets.sh && \
-    chmod +x install_geographiclib_datasets.sh && ./install_geographiclib_datasets.sh
+    chmod +x install_geographiclib_datasets.sh && ./install_geographiclib_datasets.sh && \
+    rm install_geographiclib_datasets.sh
 
 # 3. Pip Installs
 RUN pip install mediapipe==0.10.9
