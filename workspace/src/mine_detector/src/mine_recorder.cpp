@@ -78,10 +78,10 @@ public:
 
         // Subscriptions
         pose_sub_ = this->create_subscription<geometry_msgs::msg::PoseStamped>(
-            "uav1/local_position/pose", 10, std::bind(&MineLocalizationNode::pose_cb, this, std::placeholders::_1));
+            "uav3/local_position/pose", 10, std::bind(&MineLocalizationNode::pose_cb, this, std::placeholders::_1));
         
         vel_sub_ = this->create_subscription<geometry_msgs::msg::TwistStamped>(
-            "uav1/local_position/velocity_local", 10, std::bind(&MineLocalizationNode::vel_cb, this, std::placeholders::_1));
+            "uav3/local_position/velocity_local", 10, std::bind(&MineLocalizationNode::vel_cb, this, std::placeholders::_1));
 
         // Sync with port.cpp: Start Time
         start_time_sub_ = this->create_subscription<std_msgs::msg::Float64>(
