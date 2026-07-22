@@ -1,0 +1,31 @@
+#+title: Comms
+
+* Default Approach
+** Fast DDS
+*** Pros
+1) Default Minimum setup
+2) ROS topics automatically connects in a network
+*** Why we moved on
+1) Was made for reliable wired connections
+2) It floods the network with multicast traffic (bogging down wifi connection)
+
+* Alternative Approaches
+** Cyclone DDS
+1) Same problem as Fast DDS bogging down the network
+2) Was not made for Wireless unreliable networks
+
+** Zenoh (What we used)
+1) Was made specifically for large number of interconnected devices
+2) Zenoh Router only acts as mediating agent connecting the drones to each other
+3) Only uses the bandwidth that is required by it
+4) Cleaner system configuration
+
+
+* Hardware
+** Raspberry pi inbuilt wifi modules
+1) Less point of failures as we are not adding extra hardware
+2) Easier to setup
+** Radio
+1) Have better range
+2) More setup required
+3) Added weight
